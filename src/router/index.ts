@@ -15,12 +15,6 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/views/home/index.vue'),
       },
       {
-        path: '/form',
-        name: 'form',
-        meta: { title: 'form', icon: 'form' },
-        component: () => import('@/views/form/index.vue'),
-      },
-      {
         path: '/table',
         name: 'table',
         meta: { title: 'table', icon: 'table' },
@@ -32,12 +26,6 @@ const routes: Array<RouteRecordRaw> = [
             name: 'tableFirst',
             meta: { title: 'table', subTitle: 1 },
             component: () => import('@/views/table/first.vue'),
-          },
-          {
-            path: '/table/secound',
-            name: 'tableSecound',
-            meta: { title: 'table', subTitle: 2, isHidden: true },
-            component: () => import('@/views/table/secound.vue'),
           },
         ],
       },

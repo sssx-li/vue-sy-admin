@@ -100,7 +100,7 @@
 
 <script setup lang="ts">
 import { Table } from '@/service/api';
-import { usePage } from './usePage';
+import { usePage } from '@/hooks';
 
 const { t } = useI18n();
 const searchForm = reactive({
