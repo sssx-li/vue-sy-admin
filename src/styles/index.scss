@@ -1,0 +1,13 @@
+@use './theme.scss';
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+body,
+#app {
+  width: 100vw;
+  min-height: 100vh;
+}

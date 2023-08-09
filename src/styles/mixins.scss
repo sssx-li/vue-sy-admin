@@ -1,0 +1,44 @@
+@mixin flex($align: normal, $justify: normal, $direction: row) {
+  display: flex;
+  flex-direction: $direction;
+  align-items: $align;
+  justify-content: $justify;
+}
+
+@mixin wh($width, $height) {
+  width: $width;
+  height: $height;
+}
+
+@mixin lt($left, $top) {
+  position: absolute;
+  top: $top;
+  left: $left;
+}
+
+@mixin lb($left, $bottom) {
+  position: absolute;
+  bottom: $bottom;
+  left: $left;
+}
+
+@mixin rt($right, $top) {
+  position: absolute;
+  top: $top;
+  right: $right;
+}
+
+@mixin rb($right, $bottom) {
+  position: absolute;
+  right: $right;
+  bottom: $bottom;
+}
+
+@mixin textOverflow($x) {
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  box-orient: vertical;
+  -webkit-line-clamp: $x;
+}
