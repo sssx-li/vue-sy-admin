@@ -9,4 +9,8 @@ defineOptions({
 });
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.charts {
+  border: 1px solid #ccc;
+}
+</style>

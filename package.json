@@ -13,7 +13,8 @@
     "generateImgPaths": "node ./generate/imgPaths.js"
   },
   "dependencies": {
-    "@vueuse/core": "^10.2.0",
+    "@vueuse/core": "^10.3.0",
+    "echarts": "^5.4.3",
     "element-plus": "^2.3.6",
     "normalize.css": "^8.0.1",
     "nprogress": "^0.2.0",
