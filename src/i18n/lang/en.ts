@@ -5,7 +5,7 @@ const en = {
     logout: 'Logout',
     home: 'Home',
     form: 'Form',
-    table: 'Table{subTitle}',
+    table: 'TableEnum{subTitle}',
     dark: 'Dark',
     light: 'Light',
   },
@@ -60,6 +60,6 @@ const en = {
   },
 };
 
-export type TLangConfig = typeof en;
+export type LangTypes = typeof en;
 
 export default en;

@@ -1,9 +1,9 @@
-import { Table } from '.';
+import { TableEnum } from '.';
 import { Request } from '..';
 
-export function getTableData(name = '') {
+export function tableGetList(name = '') {
   return Request.get({
-    url: Table.LIST,
+    url: TableEnum.LIST,
     params: { name },
   });
 }

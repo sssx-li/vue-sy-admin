@@ -1,8 +1,9 @@
 import { useConfirm, useHandleApiRes, useMessage } from '@/hooks';
+import { ResponseStatusCodeEnum } from '@/service/api';
 import { Request } from '@/service';
-import { responseStatusCode } from '@/service/api';
-import { ITableRes } from '@/service/types/table';
-import { FormInstance, FormRules } from 'element-plus';
+
+import type { FormInstance, FormRules } from 'element-plus';
+import type { TableRes } from '@/service/types';
 
 type THandle = 'create' | 'edit' | 'delete';
 
@@ -21,7 +22,7 @@ export function usePage({
   const { t } = useI18n();
   const confirm = useConfirm();
   const loading = ref(false);
-  const dataSource = ref<ITableRes>({ data: [], count: 0 });
+  const dataSource = ref<TableRes>({ data: [], count: 0 });
   const pageInfo = reactive({
     currentPage: 1,
     pageSize: 20,
@@ -40,13 +41,13 @@ export function usePage({
   });
   const getPageData = async () => {
     loading.value = true;
-    const { data, code } = await useHandleApiRes<ITableRes>(
+    const { data, code } = await useHandleApiRes<TableRes>(
       Request.get({
         url,
         params: { ...searchForm, ...pageInfo },
       })
     );
-    if (code === responseStatusCode.success) {
+    if (code === ResponseStatusCodeEnum.success) {
       dataSource.value = data;
     }
     loading.value = false;
@@ -100,7 +101,7 @@ export function usePage({
         },
       })
     );
-    if (code === responseStatusCode.success) {
+    if (code === ResponseStatusCodeEnum.success) {
       success(t('tips.create_success'));
     }
   };
@@ -113,7 +114,7 @@ export function usePage({
         },
       })
     );
-    if (code === responseStatusCode.success) {
+    if (code === ResponseStatusCodeEnum.success) {
       success(t('tips.edit_success'));
     }
   };
@@ -133,7 +134,7 @@ export function usePage({
           params: { id: row.id },
         })
       );
-      if (code === responseStatusCode.success) {
+      if (code === ResponseStatusCodeEnum.success) {
         success(t('tips.delete_success'));
         pageInfo.currentPage = 1;
         getPageData();

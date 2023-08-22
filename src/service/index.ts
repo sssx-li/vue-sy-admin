@@ -1,5 +1,5 @@
 import { useLocalCache, useMessage } from '@/hooks';
-import { responseStatusCode } from './api';
+import { ResponseStatusCodeEnum } from './api';
 import Fetch from './fetch';
 import i18n from '@/i18n';
 const { t } = i18n.global;
@@ -25,11 +25,11 @@ export const Request = new Fetch({
     afterFetch(ctx) {
       // 这里做统一错误处理
       const { code, message } = ctx.data;
-      if (code === responseStatusCode.tokenInvalid) {
+      if (code === ResponseStatusCodeEnum.tokenInvalid) {
         error(t('requestErrorTips.login_expired'));
         clearCache();
         location.reload();
-      } else if (code !== responseStatusCode.success) {
+      } else if (code !== ResponseStatusCodeEnum.success) {
         error(message || t('requestErrorTips.request_failed'));
       }
       return ctx;
@@ -37,7 +37,7 @@ export const Request = new Fetch({
     onFetchError(ctx) {
       console.log('ctx', ctx);
       const { code, message } = ctx.error;
-      if (code === responseStatusCode.aborted) {
+      if (code === ResponseStatusCodeEnum.aborted) {
         error(message || t('requestErrorTips.request_canceled'));
       } else {
         error(t('requestErrorTips.require_error'));
