@@ -9,6 +9,7 @@ export {};
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    CountInfo: typeof import('./../src/views/dashboard/components/countInfo.vue')['default'];
     ElAside: typeof import('element-plus/es')['ElAside'];
     ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb'];
     ElBreadcrumbItem: typeof import('element-plus/es')['ElBreadcrumbItem'];
@@ -47,8 +48,6 @@ declare module '@vue/runtime-core' {
     RouterView: typeof import('vue-router')['RouterView'];
     SelectLang: typeof import('./../src/components/selectLang.vue')['default'];
     SvgIcon: typeof import('./../src/components/svgIcon.vue')['default'];
-    SyButton: typeof import('./../src/components/syButton/index.vue')['default'];
-    TestComp: typeof import('./../src/components/testComp.vue')['default'];
   }
   export interface ComponentCustomProperties {
     vLoading: typeof import('element-plus/es')['ElLoadingDirective'];
