@@ -6,13 +6,13 @@ const routes: Array<RouteRecordRaw> = [
     path: '/',
     name: 'layout',
     component: Layout,
-    redirect: '/home',
+    redirect: '/dashboard',
     children: [
       {
-        path: '/home',
-        name: 'home',
-        meta: { title: 'home', icon: 'home' },
-        component: () => import('@/views/home/index.vue'),
+        path: '/dashboard',
+        name: 'dashboard',
+        meta: { title: 'dashboard', icon: 'dashboard' },
+        component: () => import('@/views/dashboard/index.vue'),
       },
       {
         path: '/table',

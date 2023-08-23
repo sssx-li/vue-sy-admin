@@ -6,7 +6,7 @@ import type { UserInfo } from '@/service/types';
 export const useUserStore = defineStore('user', {
   state: () => {
     return {
-      userInfo: { username: 'sy', avatar: '' },
+      userInfo: { username: 'sy', avatar: '' } as UserInfo,
     };
   },
   actions: {

@@ -1,5 +1,6 @@
 export * from './user';
 export * from './table';
+export * from './dashboard';
 
 export enum ResponseStatusCodeEnum {
   success = 0, // 成功
@@ -14,4 +15,8 @@ export enum UserEnum {
 
 export enum TableEnum {
   LIST = '/list',
+}
+
+export enum DashboardEnum {
+  COUNT_INFO = '/dashboard/countInfo',
 }

@@ -1,5 +1,6 @@
 export * from './user';
 export * from './table';
+export * from './dashboard';
 
 export interface FeatchParams {
   url: string;

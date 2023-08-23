@@ -3,7 +3,7 @@ const en = {
   nav: {
     login: 'Login',
     logout: 'Logout',
-    home: 'Home',
+    dashboard: 'Dashboard',
     form: 'Form',
     table: 'TableEnum{subTitle}',
     dark: 'Dark',

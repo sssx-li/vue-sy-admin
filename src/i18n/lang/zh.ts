@@ -5,7 +5,7 @@ const zh: LangTypes = {
   nav: {
     login: '登录',
     logout: '登出',
-    home: '首页',
+    dashboard: '总览',
     form: '表单',
     table: '表格{subTitle}',
     dark: '暗黑',
