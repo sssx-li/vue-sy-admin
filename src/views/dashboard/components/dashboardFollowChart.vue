@@ -14,9 +14,7 @@ defineOptions({
 });
 
 const { followChartRef, getFollowData } = useCharts();
-onMounted(() => {
-  getFollowData();
-});
+getFollowData();
 </script>
 
 <style lang="scss" scoped></style>

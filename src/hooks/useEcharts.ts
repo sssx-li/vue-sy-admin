@@ -28,10 +28,10 @@ export function useEcharts(el: HTMLElement | Ref<HTMLElement | undefined>) {
   };
 
   useEventListener(window, 'resize', () => {
-    echartInstance.resize();
+    echartInstance && echartInstance.resize();
   });
 
-  onMounted(() => {
+  watchEffect(() => {
     const dom = toValue(el);
     if (dom) {
       echartInstance = echarts.init(dom);

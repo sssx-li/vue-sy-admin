@@ -14,9 +14,7 @@ defineOptions({
 });
 
 const { interviewChartRef, getInterviewData } = useCharts();
-onMounted(() => {
-  getInterviewData();
-});
+getInterviewData();
 </script>
 
 <style lang="scss" scoped></style>
