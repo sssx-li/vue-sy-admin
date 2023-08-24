@@ -1,6 +1,3 @@
-import { useHandleApiRes, useMessage } from '@/hooks';
-import { ResponseStatusCodeEnum, dashboardCountInfo } from '@/service/api';
-
 import type { DashboardCountInfo } from '@/service/types';
 
 /**
@@ -8,7 +5,6 @@ import type { DashboardCountInfo } from '@/service/types';
  * @returns
  */
 export function useCount() {
-  const { error } = useMessage();
   const countState = ref([0, 0, 0]);
   const transitionCountState = useTransition(countState, {
     duration: 1000,
@@ -40,12 +36,9 @@ export function useCount() {
     const {
       code,
       data: { interviews, messages, follows },
-      message,
     } = await useHandleApiRes<DashboardCountInfo>(dashboardCountInfo());
     if (code === ResponseStatusCodeEnum.success) {
       countState.value = [interviews, messages, follows];
-    } else {
-      error(message);
     }
   })();
 

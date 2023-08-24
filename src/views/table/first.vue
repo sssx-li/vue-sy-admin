@@ -99,9 +99,6 @@
 </template>
 
 <script setup lang="ts">
-import { TableEnum } from '@/service/api';
-import { usePage } from '@/hooks';
-
 const { t } = useI18n();
 const searchForm = reactive({
   name: '',

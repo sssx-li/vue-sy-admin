@@ -9,7 +9,9 @@ export {};
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    CountInfo: typeof import('./../src/views/dashboard/components/countInfo.vue')['default'];
+    DashboardCountInfo: typeof import('./../src/views/dashboard/components/dashboardCountInfo.vue')['default'];
+    DashboardFollowChart: typeof import('./../src/views/dashboard/components/dashboardFollowChart.vue')['default'];
+    DashboardInterviewChart: typeof import('./../src/views/dashboard/components/dashboardInterviewChart.vue')['default'];
     ElAside: typeof import('element-plus/es')['ElAside'];
     ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb'];
     ElBreadcrumbItem: typeof import('element-plus/es')['ElBreadcrumbItem'];

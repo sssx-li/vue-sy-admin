@@ -33,7 +33,9 @@ export function useEcharts(el: HTMLElement | Ref<HTMLElement | undefined>) {
 
   onMounted(() => {
     const dom = toValue(el);
-    echartInstance = echarts.init(dom);
+    if (dom) {
+      echartInstance = echarts.init(dom);
+    }
   });
 
   return {

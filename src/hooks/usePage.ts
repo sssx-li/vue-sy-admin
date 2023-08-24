@@ -1,7 +1,3 @@
-import { useConfirm, useHandleApiRes, useMessage } from '@/hooks';
-import { ResponseStatusCodeEnum } from '@/service/api';
-import { Request } from '@/service';
-
 import type { FormInstance, FormRules } from 'element-plus';
 import type { TableRes } from '@/service/types';
 
@@ -42,7 +38,7 @@ export function usePage({
   const getPageData = async () => {
     loading.value = true;
     const { data, code } = await useHandleApiRes<TableRes>(
-      Request.get({
+      ApiRequest.get({
         url,
         params: { ...searchForm, ...pageInfo },
       })
@@ -94,7 +90,7 @@ export function usePage({
   };
   const handleCreate = async () => {
     const { code } = await useHandleApiRes(
-      Request.post({
+      ApiRequest.post({
         url,
         data: {
           ...formInline,
@@ -107,7 +103,7 @@ export function usePage({
   };
   const handleEdit = async () => {
     const { code } = await useHandleApiRes(
-      Request.put({
+      ApiRequest.put({
         url,
         data: {
           ...formInline,
@@ -129,7 +125,7 @@ export function usePage({
       },
     }).then(async () => {
       const { code } = await useHandleApiRes(
-        Request.delete({
+        ApiRequest.delete({
           url,
           params: { id: row.id },
         })

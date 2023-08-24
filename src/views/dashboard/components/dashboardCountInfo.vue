@@ -1,6 +1,6 @@
 <!-- 统计信息 -->
 <template>
-  <el-row :gutter="20" class="mb-20px">
+  <el-row :gutter="20">
     <el-col
       :xs="24"
       :sm="12"
@@ -26,10 +26,12 @@
 
 <script setup lang="ts">
 import { useCount } from '../hooks';
+
 defineOptions({
-  name: 'CountInfo',
+  name: 'DashboardCountInfo',
   inheritAttrs: false,
 });
+
 const { UICountInfos } = useCount();
 </script>
 

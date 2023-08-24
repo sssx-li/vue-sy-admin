@@ -2,7 +2,6 @@ import { createI18n } from 'vue-i18n';
 
 import zh from './lang/zh';
 import en from './lang/en';
-import { useLocalCache } from '@/hooks';
 const { getCache } = useLocalCache();
 
 const messages = {
