@@ -1,5 +1,5 @@
 <template>
-  <div class="header-container h-100%">
+  <div class="header-container h-50px px-20px">
     <div class="fhc">
       <el-icon
         :size="24"
@@ -54,6 +54,11 @@
 </template>
 
 <script setup lang="ts">
+defineOptions({
+  name: 'LayoutHeader',
+  inheritAttrs: false,
+});
+
 defineProps<{ isCollapse?: boolean }>();
 const emits = defineEmits(['update:isCollapse']);
 
@@ -121,6 +126,8 @@ const toggleDark = useToggle(isDark);
 <style lang="scss" scoped>
 .header-container {
   @include flex(center, space-between);
+
+  border-bottom: 1px solid #ccc;
 
   .theme-switch {
     --el-switch-on-color: #313136;

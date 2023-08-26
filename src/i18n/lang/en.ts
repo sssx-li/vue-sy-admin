@@ -5,7 +5,7 @@ const en = {
     logout: 'Logout',
     dashboard: 'Dashboard',
     form: 'Form',
-    table: 'TableEnum{subTitle}',
+    table: 'Table{subTitle}',
     dark: 'Dark',
     light: 'Light',
   },
