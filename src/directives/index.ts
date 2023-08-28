@@ -1,10 +1,7 @@
 import type { App } from 'vue';
-export interface IDrrective {
-  name: string;
-  directive: any;
-}
+import { DirectiveOptions, Keys } from './types';
 
-const directiveList: Array<IDrrective> = [];
+const directiveList: Array<DirectiveOptions<Keys>> = [];
 
 export default async function directives(app: App) {
   const files = import.meta.glob('./modules/*.ts');

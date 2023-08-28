@@ -1,5 +1,8 @@
 <template>
-  <div class="watermarks-container">watermarks</div>
+  <div
+    class="watermarks-container w-500px h-500px"
+    v-watermarks="{ text: '水印' }"
+  ></div>
 </template>
 
 <script setup lang="ts">

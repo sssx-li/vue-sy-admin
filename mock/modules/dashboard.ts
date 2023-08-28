@@ -23,7 +23,6 @@ for (let i = 6; i >= 0; i--) {
     time: useDateFormat(date, 'MM-DD').value,
   });
 }
-console.log('interviewStatistics', interviewStatistics);
 
 // 关注人群统计数据
 const agesArr = ['青少年', '青年', '中年', '老年'];
