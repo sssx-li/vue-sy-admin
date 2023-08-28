@@ -43,8 +43,8 @@
   </el-table>
   <div class="flex justify-center mt-14px">
     <el-pagination
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
+      @size-change="pageSizeChange"
+      @current-change="currentPageChange"
       layout="total, sizes, prev, pager, next, jumper"
       v-model:current-page="pageInfo.currentPage"
       v-model:page-size="pageInfo.pageSize"
@@ -140,8 +140,8 @@ const {
   rules,
   dialogParams,
   getPageData,
-  handleSizeChange,
-  handleCurrentChange,
+  pageSizeChange,
+  currentPageChange,
   handleAction,
   handleCancel,
   handleConfirm,

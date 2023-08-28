@@ -1,3 +1,5 @@
+import { usePagination } from './usePagination';
+
 import type { FormInstance, FormRules } from 'element-plus';
 import type { TableRes } from '@/service/types';
 
@@ -19,10 +21,17 @@ export function usePage({
   const confirm = useConfirm();
   const loading = ref(false);
   const dataSource = ref<TableRes>({ data: [], count: 0 });
-  const pageInfo = reactive({
-    currentPage: 1,
-    pageSize: 20,
-  });
+
+  const { pageInfo, pageSizeChange, currentPageChange, resetPageSize } =
+    usePagination();
+  watch(
+    () => pageInfo,
+    () => {
+      getPageData();
+    },
+    { deep: true }
+  );
+
   const formInline = reactive({ ...queryForm });
   const formRef = ref<FormInstance>();
   const rules = reactive<FormRules>(validateRules);
@@ -48,18 +57,9 @@ export function usePage({
     }
     loading.value = false;
   };
-  const handleSizeChange = (val: number) => {
-    pageInfo.currentPage = 1;
-    pageInfo.pageSize = val;
-    getPageData();
-  };
-  const handleCurrentChange = (val: number) => {
-    pageInfo.currentPage = val;
-    getPageData();
-  };
+
   const handleCancel = () => {
     dialogParams.type = 'create';
-    pageInfo.currentPage = 1;
     dialogParams.visible = false;
     dialogParams.loading = false;
     Object.assign(formInline, { ...queryForm });
@@ -75,7 +75,7 @@ export function usePage({
           await handleEdit();
         }
         handleCancel();
-        getPageData();
+        pageInfo.currentPage === 1 ? getPageData() : resetPageSize();
       }
     });
   };
@@ -132,8 +132,7 @@ export function usePage({
       );
       if (code === ResponseStatusCodeEnum.success) {
         success(t('tips.delete_success'));
-        pageInfo.currentPage = 1;
-        getPageData();
+        pageInfo.currentPage === 1 ? getPageData() : resetPageSize();
       }
     });
   };
@@ -148,8 +147,8 @@ export function usePage({
     rules,
     dialogParams,
     getPageData,
-    handleSizeChange,
-    handleCurrentChange,
+    pageSizeChange,
+    currentPageChange,
     handleAction,
     handleCreate,
     handleEdit,
