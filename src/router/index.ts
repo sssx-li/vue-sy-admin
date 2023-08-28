@@ -19,15 +19,24 @@ const routes: Array<RouteRecordRaw> = [
         name: 'table',
         meta: { title: 'table', icon: 'table' },
         component: () => import('@/views/table/index.vue'),
-        redirect: '/table/first',
-        children: [
-          {
-            path: '/table/first',
-            name: 'tableFirst',
-            meta: { title: 'table', subTitle: 1 },
-            component: () => import('@/views/table/first.vue'),
-          },
-        ],
+      },
+      {
+        path: '/rich',
+        name: 'rich',
+        meta: { title: 'rich', icon: 'rich' },
+        component: () => import('@/views/rich/index.vue'),
+      },
+      {
+        path: '/watermarks',
+        name: 'watermarks',
+        meta: { title: 'watermarks', icon: 'watermarks' },
+        component: () => import('@/views/watermarks/index.vue'),
+      },
+      {
+        path: '/autograph',
+        name: 'autograph',
+        meta: { title: 'autograph', icon: 'autograph' },
+        component: () => import('@/views/autograph/index.vue'),
       },
     ],
   },

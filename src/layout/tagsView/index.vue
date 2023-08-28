@@ -33,16 +33,7 @@
       <li
         v-for="menu in menuList"
         :key="menu.type"
-        :class="[
-          'cursor-pointer',
-          'lh-30px',
-          'flex',
-          'items-center',
-          'px-6px',
-          'c-666',
-          'text-14px',
-          'menu-item',
-        ]"
+        class="cursor-pointer lh-30px flex items-center px-6px c-666 text-14px menu-item"
         @click="handleMenuClick(menu.type)"
       >
         <el-icon :size="14" color="var(--el-text-color-regular)" class="mr-8px">
@@ -56,7 +47,7 @@
 
 <script setup lang="ts">
 import { useZIndex } from 'element-plus';
-import { useTags, SPACING } from './useTags';
+import { useTags } from './useTags';
 import { useTagMenus } from './useTagMenus';
 defineOptions({
   name: 'LayoutTags',

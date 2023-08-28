@@ -5,9 +5,12 @@ const en = {
     logout: 'Logout',
     dashboard: 'Dashboard',
     form: 'Form',
-    table: 'Table{subTitle}',
+    table: 'Table',
     dark: 'Dark',
     light: 'Light',
+    rich: 'Rich',
+    watermarks: 'Watermarks',
+    autograph: 'Autograph',
   },
   errorTip: {
     please_enter_username: 'Please enter username.',

@@ -7,9 +7,12 @@ const zh: LangTypes = {
     logout: '登出',
     dashboard: '总览',
     form: '表单',
-    table: '表格{subTitle}',
+    table: '表格',
     dark: '暗黑',
     light: '浅亮',
+    rich: '富文本',
+    watermarks: '水印',
+    autograph: '电子签名',
   },
   errorTip: {
     please_enter_username: '请输入用户名',

@@ -7,7 +7,7 @@ import type { DashboardCountInfo } from '@/service/types';
 export function useCount() {
   const countState = ref([0, 0, 0]);
   const transitionCountState = useTransition(countState, {
-    duration: 1000,
+    duration: 1500,
     transition: [0.75, 0, 0.25, 1],
   });
 
