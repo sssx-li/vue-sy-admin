@@ -1,5 +1,5 @@
 <template>
-  <el-form :inline="true" :model="searchForm">
+  <el-form @submit.prevent :inline="true" :model="searchForm">
     <el-form-item :label="$t('table.username')">
       <el-input
         v-model="searchForm.name"

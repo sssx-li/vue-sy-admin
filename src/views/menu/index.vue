@@ -1,8 +1,5 @@
 <template>
-  <div class="menu-container">
-    menu
-    <router-view />
-  </div>
+  <router-view />
 </template>
 
 <script setup lang="ts">
