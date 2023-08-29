@@ -1,7 +1,11 @@
 <template>
   <div
-    class="watermarks-container w-500px h-500px"
-    v-watermarks="{ text: '水印' }"
+    class="watermarks-container w-100% h-100%"
+    v-watermarks="{
+      text: '这是水印',
+      textColor: '#f60',
+      styles: { height: 80 },
+    }"
   ></div>
 </template>
 

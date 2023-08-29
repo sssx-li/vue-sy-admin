@@ -230,6 +230,7 @@ declare global {
   const useOnline: typeof import('@vueuse/core')['useOnline'];
   const usePage: typeof import('../src/hooks/usePage')['usePage'];
   const usePageLeave: typeof import('@vueuse/core')['usePageLeave'];
+  const usePagination: typeof import('../src/hooks/usePagination')['usePagination'];
   const useParallax: typeof import('@vueuse/core')['useParallax'];
   const useParentElement: typeof import('@vueuse/core')['useParentElement'];
   const usePerformanceObserver: typeof import('@vueuse/core')['usePerformanceObserver'];
@@ -860,6 +861,9 @@ declare module 'vue' {
     >;
     readonly usePageLeave: UnwrapRef<
       typeof import('@vueuse/core')['usePageLeave']
+    >;
+    readonly usePagination: UnwrapRef<
+      typeof import('../src/hooks/usePagination')['usePagination']
     >;
     readonly useParallax: UnwrapRef<
       typeof import('@vueuse/core')['useParallax']
@@ -1601,6 +1605,9 @@ declare module '@vue/runtime-core' {
     >;
     readonly usePageLeave: UnwrapRef<
       typeof import('@vueuse/core')['usePageLeave']
+    >;
+    readonly usePagination: UnwrapRef<
+      typeof import('../src/hooks/usePagination')['usePagination']
     >;
     readonly useParallax: UnwrapRef<
       typeof import('@vueuse/core')['useParallax']

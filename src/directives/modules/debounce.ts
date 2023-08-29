@@ -1,33 +1,19 @@
-import type { Directive } from 'vue';
+import type { DirectiveOptions } from '../types';
 
-type EventTypes = 'click' | 'input';
+let fn;
+const focusDirective: DirectiveOptions<'vDebounce'> = {
+  name: 'debounce',
+  directive: {
+    mounted: (el: HTMLInputElement, { value }, vnode) => {
+      const { type = 'input', delay, callback } = value;
+      fn = useDebounceFn(callback.bind(vnode), delay ?? 300);
+      // 默认监听input事件
+      el.addEventListener(type, fn);
+    },
+    unmounted: (el: HTMLInputElement, { value }) => {
+      el.removeEventListener(value.type || 'input', fn!);
+    },
+  },
+};
 
-export interface Directives {
-  vFocus: Directive;
-  vDebounce: Directive<
-    any,
-    {
-      type?: EventTypes;
-      delay?: number;
-      callback: (...args: any[]) => void;
-    }
-  >;
-  vThrottle: Directive<
-    any,
-    {
-      type?: EventTypes;
-      delay?: number;
-      callback: (...args: any[]) => void;
-    }
-  >;
-}
-
-export type Keys = keyof Directives;
-type DirectiveName<T extends Keys> = T extends `v${infer V}`
-  ? Lowercase<V>
-  : never;
-
-export interface DirectiveOptions<T extends Keys> {
-  name: DirectiveName<T>;
-  directive: Directives[T];
-}
+export default focusDirective;

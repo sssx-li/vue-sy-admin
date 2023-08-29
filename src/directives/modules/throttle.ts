@@ -1,4 +1,4 @@
-import { DirectiveOptions } from '../types';
+import type { DirectiveOptions } from '../types';
 
 let fn;
 const focusDirective: DirectiveOptions<'vThrottle'> = {
