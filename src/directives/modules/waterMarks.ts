@@ -3,25 +3,25 @@ import type { DirectiveOptions } from '../types';
 const watermarksDirective: DirectiveOptions<'vWatermarks'> = {
   name: 'watermarks',
   directive: {
-    mounted: (el: HTMLElement, binding) => {
-      const { text, textColor = 'rgba(0, 0, 0, 0.4)', styles } = binding.value;
-      const style = {
-        width: 144,
-        height: 66,
-        rotate: -30,
-        ...styles,
-      };
-
+    mounted: (el: HTMLElement, { value: { text, styles = {} } }) => {
+      const {
+        width = 144,
+        height = 66,
+        rotate = -30,
+        font = '12px Microsoft JhengHei',
+        fillStyle = 'rgba(0, 0, 0, 0.4)',
+      } = styles;
       const canvas = document.createElement('canvas');
-      canvas.width = style.width;
-      canvas.height = style.height;
+      canvas.width = width;
+      canvas.height = height;
       canvas.style.display = 'none';
       el.appendChild(canvas);
 
       const ctx = canvas.getContext('2d');
-      ctx!.rotate((style.rotate * Math.PI) / 180);
-      ctx!.fillStyle = textColor;
+      ctx!.rotate((rotate * Math.PI) / 180);
+      ctx!.fillStyle = fillStyle;
       ctx!.textAlign = 'left';
+      ctx!.font = font;
       ctx!.textBaseline = 'middle';
       ctx!.fillText(text, canvas.width / 10, canvas.height / 2);
 

@@ -3,8 +3,7 @@
     class="watermarks-container w-100% h-100%"
     v-watermarks="{
       text: '这是水印',
-      textColor: '#f60',
-      styles: { height: 80 },
+      styles: { height: 80, fillStyle: '#f60' },
     }"
   ></div>
 </template>

@@ -28,12 +28,12 @@ export interface Directives {
     any,
     {
       text: string;
-      textColor?: string;
       styles?: {
         width?: number;
         height?: number;
         rotate?: number;
-        [key: string]: any;
+        font?: string;
+        fillStyle?: string;
       };
     }
   >; // 水印
