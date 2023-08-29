@@ -13,6 +13,8 @@ const zh: LangTypes = {
     rich: '富文本',
     watermarks: '水印',
     autograph: '电子签名',
+    menus: '多级菜单',
+    menu: '菜单{subTitle}',
   },
   errorTip: {
     please_enter_username: '请输入用户名',

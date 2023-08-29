@@ -11,6 +11,8 @@ const en = {
     rich: 'Rich',
     watermarks: 'Watermarks',
     autograph: 'Autograph',
+    menus: 'Menus',
+    menu: 'Menu{subTitle}',
   },
   errorTip: {
     please_enter_username: 'Please enter username.',

@@ -2,8 +2,12 @@ import type { Directive } from 'vue';
 
 type EventTypes = 'click' | 'input';
 
+export interface ELType extends HTMLElement {
+  __fn__: () => any;
+}
+
 export interface Directives {
-  vFocus: Directive;
+  vFocus: Directive; // 聚焦
   vDebounce: Directive<
     any,
     {
@@ -11,7 +15,7 @@ export interface Directives {
       delay?: number;
       callback: (...args: any[]) => void;
     }
-  >;
+  >; // 防抖
   vThrottle: Directive<
     any,
     {
@@ -19,7 +23,7 @@ export interface Directives {
       delay?: number;
       callback: (...args: any[]) => void;
     }
-  >;
+  >; // 节流
   vWatermarks: Directive<
     any,
     {
@@ -32,15 +36,16 @@ export interface Directives {
         [key: string]: any;
       };
     }
-  >;
+  >; // 水印
 }
 
 export type Keys = keyof Directives;
-type DirectiveName<T extends Keys> = T extends `v${infer V}`
-  ? `${Lowercase<V>}`
+
+type LowerDirectiveName<T extends Keys> = T extends `v${infer V}`
+  ? Lowercase<V>
   : never;
 
 export interface DirectiveOptions<T extends Keys> {
-  name: DirectiveName<T>;
+  name: LowerDirectiveName<T>;
   directive: Directives[T];
 }

@@ -18,5 +18,10 @@ export const useUserStore = defineStore('user', {
         error(message);
       }
     },
+    async getLocalData() {
+      const { getCache } = useLocalCache();
+      if (!getCache('token')) return;
+      await this.getUserInfoAction();
+    },
   },
 });

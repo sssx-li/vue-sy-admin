@@ -18,7 +18,13 @@
         <el-icon :size="14" v-if="item.meta && item.meta.icon">
           <svg-icon :name="item.meta.icon as string" />
         </el-icon>
-        <span>{{ $t(`nav.${item.meta?.title}`) }}</span>
+        <span>
+          {{
+            item.meta?.subTitle
+              ? $t(`nav.${item.meta?.title}`, { subTitle: item.meta?.subTitle })
+              : $t(`nav.${item.meta?.title}`)
+          }}
+        </span>
       </template>
       <menuItem :routes="item.children" />
     </el-sub-menu>

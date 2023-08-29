@@ -109,7 +109,7 @@ const breadcrumbs = computed(() => {
   layoutRoutes.value && findBreadcrumb(layoutRoutes.value);
   return breadcrumbArr;
 });
-const { userInfo } = storeToRefs(useStore().user);
+const { userInfo } = storeToRefs(useUserStore());
 
 const handleCommand = (command: string) => {
   if (command === 'logout') {

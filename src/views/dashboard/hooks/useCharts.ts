@@ -1,18 +1,18 @@
 import type { DashboardStatistic } from '@/service/types';
 
 export function useCharts() {
+  // 关注量统计
   const interviewChartRef = ref<HTMLDivElement>();
   const { setOption: setInterviewData } = useEcharts(interviewChartRef);
-
-  const followChartRef = ref<HTMLDivElement>();
-  const { setOption: setFollowData } = useEcharts(followChartRef);
-
   async function getInterviewData() {
     const { code, data } = await useHandleApiRes<
       Omit<DashboardStatistic, 'name'>[]
     >(dashboardInterviewStatistics());
     if (code === ResponseStatusCodeEnum.success) {
       setInterviewData({
+        tooltip: {
+          trigger: 'axis',
+        },
         xAxis: {
           type: 'category',
           data: data.map((item) => item.time) as string[],
@@ -31,12 +31,14 @@ export function useCharts() {
     }
   }
 
+  // 访问人群统计
+  const followChartRef = ref<HTMLDivElement>();
+  const { setOption: setFollowData } = useEcharts(followChartRef);
   async function getFollowData() {
     const { code, data } = await useHandleApiRes<
       Omit<DashboardStatistic, 'time'>[]
     >(dashboardFollowStatistics());
     if (code === ResponseStatusCodeEnum.success) {
-      console.log('data2', data);
       setFollowData({
         tooltip: {
           trigger: 'item',
@@ -60,11 +62,11 @@ export function useCharts() {
   }
 
   return {
-    // 访问量统计数据
+    // 关注量统计
     interviewChartRef,
     getInterviewData,
 
-    // 关注人群统计数据
+    // 访问人群统计
     followChartRef,
     getFollowData,
   };

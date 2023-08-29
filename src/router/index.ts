@@ -21,6 +21,36 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/views/table/index.vue'),
       },
       {
+        path: '/menu',
+        name: 'menu',
+        meta: { title: 'menus', icon: 'menu' },
+        component: () => import('@/views/menu/index.vue'),
+        redirect: '/menu/one',
+        children: [
+          {
+            path: '/menu/one',
+            name: 'menuOne',
+            meta: { title: 'menu', subTitle: '1' },
+            component: () => import('@/views/menu/one/index.vue'),
+            redirect: '/menu/one/one',
+            children: [
+              {
+                path: '/menu/one/one',
+                name: 'menuOneOne',
+                meta: { title: 'menu', subTitle: '1-1' },
+                component: () => import('@/views/menu/one/one.vue'),
+              },
+            ],
+          },
+          {
+            path: '/menu/two',
+            name: 'menuTwo',
+            meta: { title: 'menu', subTitle: '2' },
+            component: () => import('@/views/menu/two.vue'),
+          },
+        ],
+      },
+      {
         path: '/rich',
         name: 'rich',
         meta: { title: 'rich', icon: 'rich' },
