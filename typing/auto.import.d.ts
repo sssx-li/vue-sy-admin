@@ -8,6 +8,7 @@ declare global {
   const DashboardEnum: typeof import('../src/service/api/index')['DashboardEnum'];
   const EffectScope: typeof import('vue')['EffectScope'];
   const ResponseStatusCodeEnum: typeof import('../src/service/api/index')['ResponseStatusCodeEnum'];
+  const RichEnum: typeof import('../src/service/api/index')['RichEnum'];
   const TableEnum: typeof import('../src/service/api/index')['TableEnum'];
   const UserEnum: typeof import('../src/service/api/index')['UserEnum'];
   const acceptHMRUpdate: typeof import('pinia')['acceptHMRUpdate'];
@@ -50,6 +51,7 @@ declare global {
   const getImgUrl: typeof import('../src/utils/getImgUrl')['getImgUrl'];
   const h: typeof import('vue')['h'];
   const ignorableWatch: typeof import('@vueuse/core')['ignorableWatch'];
+  const imgToBase64: typeof import('../src/utils/imgToBase64')['imgToBase64'];
   const inject: typeof import('vue')['inject'];
   const isDefined: typeof import('@vueuse/core')['isDefined'];
   const isProxy: typeof import('vue')['isProxy'];
@@ -102,6 +104,9 @@ declare global {
   const resolveComponent: typeof import('vue')['resolveComponent'];
   const resolveRef: typeof import('@vueuse/core')['resolveRef'];
   const resolveUnref: typeof import('@vueuse/core')['resolveUnref'];
+  const richGetResult: typeof import('../src/service/api/rich')['richGetResult'];
+  const richSave: typeof import('../src/service/api/rich')['richSave'];
+  const richUploadImg: typeof import('../src/service/api/rich')['richUploadImg'];
   const setActivePinia: typeof import('pinia')['setActivePinia'];
   const setMapStoreSuffix: typeof import('pinia')['setMapStoreSuffix'];
   const shallowReactive: typeof import('vue')['shallowReactive'];
@@ -348,6 +353,9 @@ declare module 'vue' {
     readonly ResponseStatusCodeEnum: UnwrapRef<
       typeof import('../src/service/api/index')['ResponseStatusCodeEnum']
     >;
+    readonly RichEnum: UnwrapRef<
+      typeof import('../src/service/api/index')['RichEnum']
+    >;
     readonly TableEnum: UnwrapRef<
       typeof import('../src/service/api/index')['TableEnum']
     >;
@@ -456,6 +464,9 @@ declare module 'vue' {
     readonly ignorableWatch: UnwrapRef<
       typeof import('@vueuse/core')['ignorableWatch']
     >;
+    readonly imgToBase64: UnwrapRef<
+      typeof import('../src/utils/imgToBase64')['imgToBase64']
+    >;
     readonly inject: UnwrapRef<typeof import('vue')['inject']>;
     readonly isDefined: UnwrapRef<typeof import('@vueuse/core')['isDefined']>;
     readonly isProxy: UnwrapRef<typeof import('vue')['isProxy']>;
@@ -557,6 +568,15 @@ declare module 'vue' {
     readonly resolveRef: UnwrapRef<typeof import('@vueuse/core')['resolveRef']>;
     readonly resolveUnref: UnwrapRef<
       typeof import('@vueuse/core')['resolveUnref']
+    >;
+    readonly richGetResult: UnwrapRef<
+      typeof import('../src/service/api/rich')['richGetResult']
+    >;
+    readonly richSave: UnwrapRef<
+      typeof import('../src/service/api/rich')['richSave']
+    >;
+    readonly richUploadImg: UnwrapRef<
+      typeof import('../src/service/api/rich')['richUploadImg']
     >;
     readonly setActivePinia: UnwrapRef<
       typeof import('pinia')['setActivePinia']
@@ -1092,6 +1112,9 @@ declare module '@vue/runtime-core' {
     readonly ResponseStatusCodeEnum: UnwrapRef<
       typeof import('../src/service/api/index')['ResponseStatusCodeEnum']
     >;
+    readonly RichEnum: UnwrapRef<
+      typeof import('../src/service/api/index')['RichEnum']
+    >;
     readonly TableEnum: UnwrapRef<
       typeof import('../src/service/api/index')['TableEnum']
     >;
@@ -1200,6 +1223,9 @@ declare module '@vue/runtime-core' {
     readonly ignorableWatch: UnwrapRef<
       typeof import('@vueuse/core')['ignorableWatch']
     >;
+    readonly imgToBase64: UnwrapRef<
+      typeof import('../src/utils/imgToBase64')['imgToBase64']
+    >;
     readonly inject: UnwrapRef<typeof import('vue')['inject']>;
     readonly isDefined: UnwrapRef<typeof import('@vueuse/core')['isDefined']>;
     readonly isProxy: UnwrapRef<typeof import('vue')['isProxy']>;
@@ -1301,6 +1327,15 @@ declare module '@vue/runtime-core' {
     readonly resolveRef: UnwrapRef<typeof import('@vueuse/core')['resolveRef']>;
     readonly resolveUnref: UnwrapRef<
       typeof import('@vueuse/core')['resolveUnref']
+    >;
+    readonly richGetResult: UnwrapRef<
+      typeof import('../src/service/api/rich')['richGetResult']
+    >;
+    readonly richSave: UnwrapRef<
+      typeof import('../src/service/api/rich')['richSave']
+    >;
+    readonly richUploadImg: UnwrapRef<
+      typeof import('../src/service/api/rich')['richUploadImg']
     >;
     readonly setActivePinia: UnwrapRef<
       typeof import('pinia')['setActivePinia']

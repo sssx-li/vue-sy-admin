@@ -18,3 +18,9 @@ export enum DashboardEnum {
   INTERVIEW_STATISTICS = '/dashboard/interviewStatistics',
   FOLLOW_STATISTICS = '/dashboard/followStatistics',
 }
+
+export enum RichEnum {
+  UPRODE_IMG = '/rich/uprodeImg',
+  SAVE = '/rich/save',
+  GET_RESULT = '/rich/getResult',
+}

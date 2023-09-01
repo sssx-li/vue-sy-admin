@@ -38,7 +38,7 @@ const userMocks: MockItem[] = [
       setCache('userInfo', userInfo);
       return createResponse(loginRes);
     },
-    options: { timing: 2000 },
+    options: { timing: 1000 },
   },
 ];
 

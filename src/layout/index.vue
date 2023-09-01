@@ -41,4 +41,8 @@ watchEffect(() => {
   border-bottom: 1px solid #ccc;
   box-shadow: 0 2px 8px 0 rgb(0 0 0 / 24%);
 }
+
+.el-main {
+  background-color: var(--el-bg-color-page);
+}
 </style>

@@ -1,64 +1,80 @@
 <template>
-  <div class="rich-container b-solid b-1px b-#ccc">
-    <Toolbar
-      class="b-b-solid b-b-1px b-b-#ccc"
-      :editor="editorRef"
-      :defaultConfig="toolbarConfig"
-      :mode="mode"
-    />
-    <Editor
-      class="min-h-250px overflow-y-hidden"
+  <div class="rich-container h-100%">
+    <RichEditor
+      mode="default"
       v-model="valueHtml"
-      :defaultConfig="editorConfig"
-      :mode="mode"
-      @onCreated="handleCreated"
-      @onChange="handleChange"
+      :toolbar-config="toolbarConfig"
+      :editor-config="editorConfig"
+      class="h-300px min-w-710px"
+    />
+    <div class="mt-100px">
+      <el-button type="primary" @click="handleConfirm">保存</el-button>
+      <el-button @click="handleClear">清空</el-button>
+    </div>
+    <RichEditor
+      mode="default"
+      v-model="resHtml"
+      :toolbar-config="{}"
+      :editor-config="{ readOnly: true }"
+      class="h-300px min-w-710px mt-14px"
     />
   </div>
 </template>
 
 <script setup lang="ts">
-import '@wangeditor/editor/dist/css/style.css';
-import { Editor, Toolbar } from '@wangeditor/editor-for-vue';
+import type { IToolbarConfig, IEditorConfig } from '@wangeditor/editor';
+import type { RichUploadImgRes } from '@/service/types';
 
 defineOptions({
   name: 'rich',
   inheritAttrs: false,
 });
 
-const mode = ref<'default' | 'simple'>('default');
-
-// 编辑器实例，必须用 shallowRef
-const editorRef = shallowRef();
+const { success } = useMessage();
 
 // 内容 HTML
-const valueHtml = ref('<p>hello</p>');
-
-// 模拟 ajax 异步获取内容
-onMounted(() => {
-  setTimeout(() => {
-    valueHtml.value = '<p>模拟 Ajax 异步设置内容</p>';
-  }, 1500);
-});
+const valueHtml = ref('');
+const resHtml = ref('');
 
 // 工具词条配置
-const toolbarConfig = {};
+const toolbarConfig: Partial<IToolbarConfig> = {};
 // 编辑器配置
-const editorConfig = { placeholder: '请输入内容...' };
-
-const handleCreated = (editor: any) => {
-  editorRef.value = editor;
+const editorConfig: Partial<IEditorConfig> = {
+  placeholder: '请输入内容...',
+  MENU_CONF: {
+    uploadImage: {
+      // server: RichEnum.UPRODE_IMG,
+      // 自定义上传图片
+      async customUpload(file: File, insertFn: any) {
+        const {
+          data: { url },
+        } = await useHandleApiRes<RichUploadImgRes>(richUploadImg(file));
+        insertFn(url);
+      },
+      // 小于该值就插入 base64 格式（而不上传），默认为 0
+      // base64LimitSize: 5 * 1024, // 5kb
+    },
+  },
 };
 
-const handleChange = (editor: any) => {
-  console.log('change', editor);
-  // console.log(editor.getHtml());
-};
+async function getRichContent() {
+  const { data } = await useHandleApiRes(richGetResult());
+  resHtml.value = data;
+}
 
-onBeforeUnmount(() => {
-  const editor = editorRef.value;
-  if (editor == null) return;
-  editor.destroy();
+async function handleConfirm() {
+  const { code, message } = await useHandleApiRes(richSave(valueHtml.value));
+  if (code === ResponseStatusCodeEnum.success) {
+    success(message);
+    getRichContent();
+  }
+}
+function handleClear() {
+  valueHtml.value = '';
+}
+
+onBeforeMount(() => {
+  getRichContent();
 });
 </script>
 
