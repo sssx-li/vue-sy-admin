@@ -5,12 +5,12 @@
 export {}
 declare global {
   const ApiRequest: typeof import('../src/service/index')['ApiRequest'];
-  const DashboardEnum: typeof import('../src/service/api/index')['DashboardEnum'];
+  const DashboardEnum: typeof import('../src/constants/apiEnum')['DashboardEnum'];
   const EffectScope: typeof import('vue')['EffectScope'];
-  const ResponseStatusCodeEnum: typeof import('../src/service/api/index')['ResponseStatusCodeEnum'];
-  const RichEnum: typeof import('../src/service/api/index')['RichEnum'];
-  const TableEnum: typeof import('../src/service/api/index')['TableEnum'];
-  const UserEnum: typeof import('../src/service/api/index')['UserEnum'];
+  const ResponseStatusCodeEnum: typeof import('../src/constants/apiEnum')['ResponseStatusCodeEnum'];
+  const RichEnum: typeof import('../src/constants/apiEnum')['RichEnum'];
+  const TableEnum: typeof import('../src/constants/apiEnum')['TableEnum'];
+  const UserEnum: typeof import('../src/constants/apiEnum')['UserEnum'];
   const acceptHMRUpdate: typeof import('pinia')['acceptHMRUpdate'];
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed'];
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef'];
@@ -35,7 +35,6 @@ declare global {
   const dashboardCountInfo: typeof import('../src/service/api/dashboard')['dashboardCountInfo'];
   const dashboardFollowStatistics: typeof import('../src/service/api/dashboard')['dashboardFollowStatistics'];
   const dashboardInterviewStatistics: typeof import('../src/service/api/dashboard')['dashboardInterviewStatistics'];
-  const dateFormat: typeof import('../src/utils/dateFormat')['dateFormat'];
   const debouncedRef: typeof import('@vueuse/core')['debouncedRef'];
   const debouncedWatch: typeof import('@vueuse/core')['debouncedWatch'];
   const defineAsyncComponent: typeof import('vue')['defineAsyncComponent'];
@@ -347,20 +346,20 @@ declare module 'vue' {
       typeof import('../src/service/index')['ApiRequest']
     >;
     readonly DashboardEnum: UnwrapRef<
-      typeof import('../src/service/api/index')['DashboardEnum']
+      typeof import('../src/constants/apiEnum')['DashboardEnum']
     >;
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>;
     readonly ResponseStatusCodeEnum: UnwrapRef<
-      typeof import('../src/service/api/index')['ResponseStatusCodeEnum']
+      typeof import('../src/constants/apiEnum')['ResponseStatusCodeEnum']
     >;
     readonly RichEnum: UnwrapRef<
-      typeof import('../src/service/api/index')['RichEnum']
+      typeof import('../src/constants/apiEnum')['RichEnum']
     >;
     readonly TableEnum: UnwrapRef<
-      typeof import('../src/service/api/index')['TableEnum']
+      typeof import('../src/constants/apiEnum')['TableEnum']
     >;
     readonly UserEnum: UnwrapRef<
-      typeof import('../src/service/api/index')['UserEnum']
+      typeof import('../src/constants/apiEnum')['UserEnum']
     >;
     readonly acceptHMRUpdate: UnwrapRef<
       typeof import('pinia')['acceptHMRUpdate']
@@ -425,9 +424,6 @@ declare module 'vue' {
     >;
     readonly dashboardInterviewStatistics: UnwrapRef<
       typeof import('../src/service/api/dashboard')['dashboardInterviewStatistics']
-    >;
-    readonly dateFormat: UnwrapRef<
-      typeof import('../src/utils/dateFormat')['dateFormat']
     >;
     readonly debouncedRef: UnwrapRef<
       typeof import('@vueuse/core')['debouncedRef']
@@ -1106,20 +1102,20 @@ declare module '@vue/runtime-core' {
       typeof import('../src/service/index')['ApiRequest']
     >;
     readonly DashboardEnum: UnwrapRef<
-      typeof import('../src/service/api/index')['DashboardEnum']
+      typeof import('../src/constants/apiEnum')['DashboardEnum']
     >;
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>;
     readonly ResponseStatusCodeEnum: UnwrapRef<
-      typeof import('../src/service/api/index')['ResponseStatusCodeEnum']
+      typeof import('../src/constants/apiEnum')['ResponseStatusCodeEnum']
     >;
     readonly RichEnum: UnwrapRef<
-      typeof import('../src/service/api/index')['RichEnum']
+      typeof import('../src/constants/apiEnum')['RichEnum']
     >;
     readonly TableEnum: UnwrapRef<
-      typeof import('../src/service/api/index')['TableEnum']
+      typeof import('../src/constants/apiEnum')['TableEnum']
     >;
     readonly UserEnum: UnwrapRef<
-      typeof import('../src/service/api/index')['UserEnum']
+      typeof import('../src/constants/apiEnum')['UserEnum']
     >;
     readonly acceptHMRUpdate: UnwrapRef<
       typeof import('pinia')['acceptHMRUpdate']
@@ -1184,9 +1180,6 @@ declare module '@vue/runtime-core' {
     >;
     readonly dashboardInterviewStatistics: UnwrapRef<
       typeof import('../src/service/api/dashboard')['dashboardInterviewStatistics']
-    >;
-    readonly dateFormat: UnwrapRef<
-      typeof import('../src/utils/dateFormat')['dateFormat']
     >;
     readonly debouncedRef: UnwrapRef<
       typeof import('@vueuse/core')['debouncedRef']

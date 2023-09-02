@@ -39,7 +39,6 @@
     "dashboardCountInfo": true,
     "dashboardFollowStatistics": true,
     "dashboardInterviewStatistics": true,
-    "dateFormat": true,
     "debouncedRef": true,
     "debouncedWatch": true,
     "defineAsyncComponent": true,
