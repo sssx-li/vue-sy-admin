@@ -9,7 +9,6 @@
       @onCreated="handleCreated"
       @onChange="handleChange"
     />
-    <br />
   </div>
 </template>
 

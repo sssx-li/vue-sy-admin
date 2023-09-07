@@ -1,5 +1,5 @@
 <template>
-  <div class="rich-container h-100%">
+  <div class="rich-container">
     <RichEditor
       mode="default"
       v-model="valueHtml"
