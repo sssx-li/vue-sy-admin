@@ -1,14 +1,15 @@
 import { createI18n } from 'vue-i18n';
 
-import zh from './lang/zh';
-import en from './lang/en';
+import jsonText from './lang.json';
+
 const { getCache } = useLocalCache();
 
 const messages = {
-  en,
-  zh,
+  en: jsonText.en,
+  zh: jsonText.zh,
 };
 
+export type LangTypes = typeof messages.zh;
 export type LangType = keyof typeof messages;
 
 const i18n = createI18n({
