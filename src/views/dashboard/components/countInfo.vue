@@ -29,7 +29,6 @@ import { useCount } from '../hooks';
 
 defineOptions({
   name: 'DashboardCountInfo',
-  inheritAttrs: false,
 });
 
 const { UICountInfos } = useCount();

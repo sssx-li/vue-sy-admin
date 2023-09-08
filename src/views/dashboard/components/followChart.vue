@@ -10,7 +10,6 @@ import { useCharts } from '../hooks';
 
 defineOptions({
   name: 'DashboardFollowChart',
-  inheritAttrs: false,
 });
 
 const { followChartRef, getFollowData } = useCharts();

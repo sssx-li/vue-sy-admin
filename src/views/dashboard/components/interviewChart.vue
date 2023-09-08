@@ -10,7 +10,6 @@ import { useCharts } from '../hooks';
 
 defineOptions({
   name: 'DashboardInterviewChart',
-  inheritAttrs: false,
 });
 
 const { interviewChartRef, getInterviewData } = useCharts();
