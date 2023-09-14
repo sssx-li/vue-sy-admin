@@ -155,11 +155,6 @@ e.g.: git commit -m "docs: update README.md"
   <svg-icon name="vue" style="color: #f60" />
 ```
 
-### 国际化(vue-i18n)使用说明
-
-语言翻译存放在 src/i18n/lang.xlsx 中，使用命令 pnpm build:lang 生成语言包。  
-sy-excel2json 更多用法详见[国际化(vue-i18n)，翻译词条繁琐问题](https://blog.csdn.net/weixin_42386379/article/details/132729842?spm=1001.2014.3001.5501)
-
 ### vueuse 使用相关系列文章
 
 #### [1.vueuse-useLocalStorage 在项目中的使用](https://blog.csdn.net/weixin_42386379/article/details/130059649?spm=1001.2014.3001.5501)
