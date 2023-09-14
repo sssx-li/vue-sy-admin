@@ -82,6 +82,7 @@ const breadcrumbs = computed(() => {
     for (let index = 0; index < routes.length; index++) {
       const item = routes[index];
       if (item.path === route.path && item.meta?.title) {
+        // 父级title
         parentRoute &&
           parentRoute.meta &&
           breadcrumbArr.push({
@@ -92,6 +93,7 @@ const breadcrumbs = computed(() => {
               : t(`nav.${parentRoute!.meta.title}`),
             path: parentRoute.path,
           });
+        // 当前路由title
         breadcrumbArr.push({
           title: item.meta.subTitle
             ? t(`nav.${item.meta.title}`, {
