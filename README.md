@@ -1,4 +1,10 @@
-# vue-vite-template
+# vue-sy-admin
+
+项目框架基于 cli `sy-prt-cli` 生成基础模板，详情可查看[github:sy-prt-cli](https://github.com/sssx-li/sy-prt-cli)、[npm:sy-prt-cli](https://www.npmjs.com/package/sy-prt-cli)
+
+cli 生成模板基于 `vue-vite-template` 项目;详情可查看[github:vue-vite-template](https://github.com/sssx-li/vue-vite-template/tree/element-template/)、[gitee:vue-vite-template](https://gitee.com/qy-tingyun/vue-vite-template/tree/element-template/)
+
+###
 
 ### 特色功能
 
@@ -73,15 +79,6 @@
 
   - views
     存放页面组件
-
-#### 分支管理
-
-```base
-  main/master: 用于基础功能开发
-  element-template: 集成element-plus
-  antd-template: 集成ant-design-vue
-  *-scope: 用于cli工具模板生成
-```
 
 ## 安装依赖
 
