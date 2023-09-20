@@ -4,7 +4,11 @@
 
 cli 生成模板基于 `vue-vite-template` 项目;详情可查看[github:vue-vite-template](https://github.com/sssx-li/vue-vite-template/tree/element-template/)、[gitee:vue-vite-template](https://gitee.com/qy-tingyun/vue-vite-template/tree/element-template/)
 
-###
+### 后续更新功能
+
+- 1. 权限控制-动态路由(由接口控制)
+- 2. 权限控制-用户列表(增删改查)
+- 3. ol-地图
 
 ### 特色功能
 
