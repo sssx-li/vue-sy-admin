@@ -21,14 +21,16 @@ if (cacheUserInfo.username) {
 }
 
 const userMocks: MockItem[] = [
+  // 用户信息
   {
     url: UserEnum.INFO,
     method: 'get',
     response: () => {
       return createResponse<UserInfo>(userInfo);
     },
-    options: { timing: 1000 },
+    options: { timing: 1000 }, // 接口响应时间
   },
+  // 登录
   {
     url: UserEnum.LOGIN,
     method: 'post',

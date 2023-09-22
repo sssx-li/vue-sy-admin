@@ -35,6 +35,7 @@ agesArr.forEach((item) => {
 });
 
 const dashboardMocks: MockItem[] = [
+  // 访问量统计数据
   {
     url: DashboardEnum.COUNT_INFO,
     method: 'get',
@@ -42,6 +43,7 @@ const dashboardMocks: MockItem[] = [
       return createResponse<DashboardCountInfo>(countInfo);
     },
   },
+  // 关注人群统计数据
   {
     url: DashboardEnum.INTERVIEW_STATISTICS,
     method: 'get',

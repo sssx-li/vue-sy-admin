@@ -19,9 +19,12 @@ export function usePage<T = TableItem>({
   const { success } = useMessage();
   const { t } = useI18n();
   const confirm = useConfirm();
+
+  // 表格数据
   const loading = ref(false);
   const dataSource = reactive<TableRes<T>>({ data: [], count: 0 });
 
+  // 分页
   const { pageInfo, pageSizeChange, currentPageChange, resetPageSize } =
     usePagination();
   watch(
@@ -32,9 +35,12 @@ export function usePage<T = TableItem>({
     { deep: true }
   );
 
+  // 表单
   const formInline = reactive({ ...queryForm });
   const formRef = ref<FormInstance>();
   const rules = reactive<FormRules>(validateRules);
+
+  // 弹窗
   const dialogParams = reactive<{
     visible: boolean;
     loading: boolean;
@@ -44,6 +50,7 @@ export function usePage<T = TableItem>({
     loading: false,
     type: 'create',
   });
+  // 获取数据
   const getPageData = async () => {
     loading.value = true;
     const { data, code } = await useHandleApiRes<TableRes<T>>(
@@ -58,6 +65,7 @@ export function usePage<T = TableItem>({
     loading.value = false;
   };
 
+  // 弹窗-取消
   const handleCancel = () => {
     dialogParams.type = 'create';
     dialogParams.visible = false;
@@ -65,6 +73,7 @@ export function usePage<T = TableItem>({
     Object.assign(formInline, { ...queryForm });
     formRef.value?.resetFields();
   };
+  // 弹窗-确认
   const handleConfirm = () => {
     formRef.value?.validate().then(async (valid) => {
       if (valid) {
@@ -79,6 +88,7 @@ export function usePage<T = TableItem>({
       }
     });
   };
+  // 表格-增删改
   const handleAction = (type: THandle, row?: Record<string, any>) => {
     if (type === 'delete') {
       handleDelete(row!);
@@ -88,6 +98,7 @@ export function usePage<T = TableItem>({
     dialogParams.type = type as Exclude<THandle, 'delete'>;
     dialogParams.visible = true;
   };
+  // 增加
   const handleCreate = async () => {
     const { code } = await useHandleApiRes(
       ApiRequest.post({
@@ -101,6 +112,7 @@ export function usePage<T = TableItem>({
       success(t('tips.create_success'));
     }
   };
+  // 编辑
   const handleEdit = async () => {
     const { code } = await useHandleApiRes(
       ApiRequest.put({
@@ -114,6 +126,7 @@ export function usePage<T = TableItem>({
       success(t('tips.edit_success'));
     }
   };
+  // 删除
   const handleDelete = (row: Record<string, any>) => {
     confirm({
       title: t('tips.delete'),
@@ -136,6 +149,7 @@ export function usePage<T = TableItem>({
       }
     });
   };
+
   getPageData();
 
   return {

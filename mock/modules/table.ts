@@ -18,12 +18,14 @@ const tableData: { data: TableItem[] } = Mock.mock({
 });
 
 const tableMocks: MockItem[] = [
+  // 获取列表
   {
     url: TableEnum.LIST,
     method: 'get',
     response: (schema, request) => {
       const { name, currentPage, pageSize } = request.queryParams;
       const resData = JSON.parse(JSON.stringify(tableData));
+      // 模糊搜索 + 分页
       resData.data = tableData.data
         .filter((item) => {
           if (!name) return true;
@@ -34,44 +36,38 @@ const tableMocks: MockItem[] = [
       return createResponse<TableRes>(resData);
     },
   },
+  // 修改项
   {
     url: TableEnum.LIST,
     method: 'put',
     response: (schema, request) => {
       const query = JSON.parse(request.requestBody);
-      for (let index = 0; index < tableData.data.length; index++) {
-        const item = tableData.data[index];
-        if (item.id === query.id) {
-          tableData.data[index] = { ...query };
-          break;
-        }
-      }
+      const index = tableData.data.findIndex((item) => item.id === query.id);
+      tableData.data[index] = { ...query };
       return createResponse('success');
     },
   },
+  // 新增项
   {
     url: TableEnum.LIST,
     method: 'post',
     response: (schema, request) => {
       const query = JSON.parse(request.requestBody);
-      console.log('query', query);
       tableData.data.unshift({
         ...query,
         id: tableData.data.sort((a, b) => b.id - a.id)[0].id + 1,
         createTime: useDateFormat(useNow(), 'YYYY-MM-DD hh:mm:ss').value,
       });
-      console.log('tableData.data', tableData.data);
       return createResponse('success');
     },
   },
+  // 删除项
   {
     url: TableEnum.LIST,
     method: 'delete',
     response: (schema, request) => {
       const { id } = request.queryParams;
-      tableData.data = tableData.data.filter(
-        (item) => item.id !== parseInt(id)
-      );
+      tableData.data = tableData.data.filter((item) => item.id !== +id);
       return createResponse('success');
     },
   },

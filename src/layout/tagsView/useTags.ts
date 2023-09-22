@@ -73,10 +73,10 @@ export function useTags() {
   // 位移到当前标签
   function moveToTag(tag: Tag) {
     const tagItems = document.querySelectorAll<HTMLSpanElement>('.tag-item');
-    const curItem = tagsView.findTagIndex(tag);
+    const curTagIndex = tagsView.findTagIndex(tag);
     let scrollLeft = 0;
-    if (curItem > 0) {
-      const curTag = tagItems[curItem];
+    if (curTagIndex > 0) {
+      const curTag = tagItems[curTagIndex];
       const { offsetLeft, offsetWidth } = curTag;
       const scrollWidth = offsetLeft + offsetWidth;
       scrollLeft = scrollWidth - scrollWrapWidth.value <= 0 ? 0 : offsetLeft;

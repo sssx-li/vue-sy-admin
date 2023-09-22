@@ -21,7 +21,7 @@ export async function setupMock() {
           options
         );
       }
-      // 过滤其它请求
+      // 其它path直接访问真实接口
       this.passthrough();
     },
   });

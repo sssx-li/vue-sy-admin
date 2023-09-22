@@ -40,6 +40,7 @@ export function useTagMenus(
     showMenu.value = true;
   }
 
+  // 点击右键菜单
   function handleMenuClick(type: MenuTypes) {
     if (type === 'close') {
       tagsView.deleteAll();

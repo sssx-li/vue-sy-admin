@@ -6,6 +6,7 @@ import type { RichUploadImgRes } from '@/service/types';
 let htmlRes = '';
 
 const richMocks: MockItem[] = [
+  // 获取数据
   {
     url: RichEnum.GET_RESULT,
     method: 'get',
@@ -13,6 +14,7 @@ const richMocks: MockItem[] = [
       return createResponse<string>(htmlRes);
     },
   },
+  // 图片上传
   {
     url: RichEnum.UPRODE_IMG,
     method: 'post',
@@ -23,12 +25,13 @@ const richMocks: MockItem[] = [
       });
     },
   },
+  // 保存
   {
     url: RichEnum.SAVE,
     method: 'post',
     response: async (schema, request) => {
       htmlRes = JSON.parse(request.requestBody).data;
-      return createResponse<string>('保存成功');
+      return createResponse('success');
     },
   },
 ];
