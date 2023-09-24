@@ -88,9 +88,9 @@ const handleLogin = () => {
       );
       if (code === ResponseStatusCodeEnum.success) {
         setCache('token', data.token);
-        router.push('/');
+        await router.push('/');
+        loading.value = false;
       }
-      loading.value = false;
     } else {
       console.log('error submit!', fields);
     }

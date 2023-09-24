@@ -1,7 +1,12 @@
+import piniaPersist from 'pinia-plugin-persist';
+
 export const useStore = () => {
   return {
     user: useUserStore(),
   };
 };
 
-export default createPinia();
+const store = createPinia();
+
+// 持久化pinia
+export default store.use(piniaPersist);

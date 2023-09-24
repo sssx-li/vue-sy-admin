@@ -7,18 +7,10 @@ import type { UserInfo } from '@/service/types';
 
 const { getCache, setCache } = useLocalCache();
 
+// token
 const loginRes = Mock.mock({
   'token|30': /[a-zA-Z0-9]/,
 });
-
-const userInfo = Mock.mock({
-  username: '@cname',
-  avatar: '',
-});
-const cacheUserInfo = getCache('userInfo');
-if (cacheUserInfo.username) {
-  userInfo.username = cacheUserInfo.username;
-}
 
 const userMocks: MockItem[] = [
   // 用户信息
@@ -26,9 +18,11 @@ const userMocks: MockItem[] = [
     url: UserEnum.INFO,
     method: 'get',
     response: () => {
+      const store = useUserStore();
+      const userInfo = getCache('userInfo');
+      store.userInfo = userInfo;
       return createResponse<UserInfo>(userInfo);
     },
-    options: { timing: 1000 }, // 接口响应时间
   },
   // 登录
   {
@@ -36,11 +30,30 @@ const userMocks: MockItem[] = [
     method: 'post',
     response: (schema, request) => {
       const body = JSON.parse(request.requestBody);
-      userInfo.username = body.username;
-      setCache('userInfo', userInfo);
+      const store = useUserStore();
+      const user = (store.userList.find(
+        (item) => item.username === body.username
+      ) || {
+        username: body.username,
+        role: 'normal',
+        sex: 0,
+      }) as UserInfo;
+      setCache('userInfo', toRaw(user));
       return createResponse(loginRes);
     },
-    options: { timing: 1000 },
+    options: { timing: 1000 }, // 接口响应时间
+  },
+  // 用户权限菜单
+  {
+    url: UserEnum.PERMISSIONS,
+    method: 'get',
+    response: () => {
+      const { role } = getCache('userInfo');
+      const { adminPermissions, normalPermissions } = usePermissionStore();
+      return createResponse(
+        role === 'admin' ? adminPermissions : normalPermissions
+      );
+    },
   },
 ];
 

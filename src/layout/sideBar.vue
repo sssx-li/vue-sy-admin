@@ -10,7 +10,10 @@
         <i-sy-vue />
       </el-icon>
     </div>
-    <MenuItem :routes="routes" v-if="routes" />
+    <MenuItem
+      :routes="permissionMenus"
+      v-if="permissionMenus && permissionMenus.length > 0"
+    />
   </el-menu>
 </template>
 
@@ -20,29 +23,8 @@ import MenuItem from './menuItem.vue';
 defineProps<{ isCollapse?: boolean }>();
 
 const route = useRoute();
-const router = useRouter();
+const { permissionMenus } = storeToRefs(usePermissionStore());
 
-const routes = computed(() => {
-  function _noHidden(_routes: RouteRecordRaw[]) {
-    const filterRoute: RouteRecordRaw[] = [];
-    _routes.forEach((_route) => {
-      if (!_route?.meta?.isHidden) {
-        if (!_route.children || _route.children.length === 0) {
-          filterRoute.push(_route);
-        } else {
-          filterRoute.push({
-            ..._route,
-            children: _noHidden(_route.children)! || [],
-          });
-        }
-      }
-    });
-    return filterRoute;
-  }
-  return _noHidden(
-    router.getRoutes().find((item) => item.name === 'layout')!.children
-  );
-});
 const defaultActive = computed(() => route.path);
 </script>
 

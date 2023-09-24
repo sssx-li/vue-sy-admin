@@ -7,6 +7,7 @@ declare global {
   const ApiRequest: typeof import('../src/service/index')['ApiRequest'];
   const DashboardEnum: typeof import('../src/constants/apiEnum')['DashboardEnum'];
   const EffectScope: typeof import('vue')['EffectScope'];
+  const PermissionEnum: typeof import('../src/constants/apiEnum')['PermissionEnum'];
   const ResponseStatusCodeEnum: typeof import('../src/constants/apiEnum')['ResponseStatusCodeEnum'];
   const RichEnum: typeof import('../src/constants/apiEnum')['RichEnum'];
   const TableEnum: typeof import('../src/constants/apiEnum')['TableEnum'];
@@ -45,6 +46,7 @@ declare global {
   const effectScope: typeof import('vue')['effectScope'];
   const extendRef: typeof import('@vueuse/core')['extendRef'];
   const fetch: typeof import('../src/service/fetch')['default'];
+  const generatePermissionRoutes: typeof import('../src/utils/permission')['generatePermissionRoutes'];
   const getActivePinia: typeof import('pinia')['getActivePinia'];
   const getCurrentInstance: typeof import('vue')['getCurrentInstance'];
   const getCurrentScope: typeof import('vue')['getCurrentScope'];
@@ -87,6 +89,8 @@ declare global {
   const onUnmounted: typeof import('vue')['onUnmounted'];
   const onUpdated: typeof import('vue')['onUpdated'];
   const pausableWatch: typeof import('@vueuse/core')['pausableWatch'];
+  const permission: typeof import('../src/utils/permission')['default'];
+  const permissionGetList: typeof import('../src/service/api/permission')['permissionGetList'];
   const provide: typeof import('vue')['provide'];
   const reactify: typeof import('@vueuse/core')['reactify'];
   const reactifyObject: typeof import('@vueuse/core')['reactifyObject'];
@@ -107,6 +111,7 @@ declare global {
   const richGetResult: typeof import('../src/service/api/rich')['richGetResult'];
   const richSave: typeof import('../src/service/api/rich')['richSave'];
   const richUploadImg: typeof import('../src/service/api/rich')['richUploadImg'];
+  const routes2permissionJson: typeof import('../src/utils/permission')['routes2permissionJson'];
   const setActivePinia: typeof import('pinia')['setActivePinia'];
   const setMapStoreSuffix: typeof import('pinia')['setMapStoreSuffix'];
   const shallowReactive: typeof import('vue')['shallowReactive'];
@@ -240,6 +245,7 @@ declare global {
   const useParentElement: typeof import('@vueuse/core')['useParentElement'];
   const usePerformanceObserver: typeof import('@vueuse/core')['usePerformanceObserver'];
   const usePermission: typeof import('@vueuse/core')['usePermission'];
+  const usePermissionStore: typeof import('../src/store/modules/permission')['usePermissionStore'];
   const usePointer: typeof import('@vueuse/core')['usePointer'];
   const usePointerLock: typeof import('@vueuse/core')['usePointerLock'];
   const usePointerSwipe: typeof import('@vueuse/core')['usePointerSwipe'];
@@ -306,6 +312,7 @@ declare global {
   const useWindowScroll: typeof import('@vueuse/core')['useWindowScroll'];
   const useWindowSize: typeof import('@vueuse/core')['useWindowSize'];
   const userGetUserInfo: typeof import('../src/service/api/user')['userGetUserInfo'];
+  const userGetUserPermissionMenus: typeof import('../src/service/api/user')['userGetUserPermissionMenus'];
   const userLogin: typeof import('../src/service/api/user')['userLogin'];
   const watch: typeof import('vue')['watch'];
   const watchArray: typeof import('@vueuse/core')['watchArray'];
@@ -350,6 +357,9 @@ declare module 'vue' {
       typeof import('../src/constants/apiEnum')['DashboardEnum']
     >;
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>;
+    readonly PermissionEnum: UnwrapRef<
+      typeof import('../src/constants/apiEnum')['PermissionEnum']
+    >;
     readonly ResponseStatusCodeEnum: UnwrapRef<
       typeof import('../src/constants/apiEnum')['ResponseStatusCodeEnum']
     >;
@@ -448,6 +458,9 @@ declare module 'vue' {
     readonly effectScope: UnwrapRef<typeof import('vue')['effectScope']>;
     readonly extendRef: UnwrapRef<typeof import('@vueuse/core')['extendRef']>;
     readonly fetch: UnwrapRef<typeof import('../src/service/fetch')['default']>;
+    readonly generatePermissionRoutes: UnwrapRef<
+      typeof import('../src/utils/permission')['generatePermissionRoutes']
+    >;
     readonly getActivePinia: UnwrapRef<
       typeof import('pinia')['getActivePinia']
     >;
@@ -532,6 +545,12 @@ declare module 'vue' {
     readonly pausableWatch: UnwrapRef<
       typeof import('@vueuse/core')['pausableWatch']
     >;
+    readonly permission: UnwrapRef<
+      typeof import('../src/utils/permission')['default']
+    >;
+    readonly permissionGetList: UnwrapRef<
+      typeof import('../src/service/api/permission')['permissionGetList']
+    >;
     readonly provide: UnwrapRef<typeof import('vue')['provide']>;
     readonly reactify: UnwrapRef<typeof import('@vueuse/core')['reactify']>;
     readonly reactifyObject: UnwrapRef<
@@ -577,6 +596,9 @@ declare module 'vue' {
     >;
     readonly richUploadImg: UnwrapRef<
       typeof import('../src/service/api/rich')['richUploadImg']
+    >;
+    readonly routes2permissionJson: UnwrapRef<
+      typeof import('../src/utils/permission')['routes2permissionJson']
     >;
     readonly setActivePinia: UnwrapRef<
       typeof import('pinia')['setActivePinia']
@@ -897,6 +919,9 @@ declare module 'vue' {
     readonly usePermission: UnwrapRef<
       typeof import('@vueuse/core')['usePermission']
     >;
+    readonly usePermissionStore: UnwrapRef<
+      typeof import('../src/store/modules/permission')['usePermissionStore']
+    >;
     readonly usePointer: UnwrapRef<typeof import('@vueuse/core')['usePointer']>;
     readonly usePointerLock: UnwrapRef<
       typeof import('@vueuse/core')['usePointerLock']
@@ -1058,6 +1083,9 @@ declare module 'vue' {
     >;
     readonly userGetUserInfo: UnwrapRef<
       typeof import('../src/service/api/user')['userGetUserInfo']
+    >;
+    readonly userGetUserPermissionMenus: UnwrapRef<
+      typeof import('../src/service/api/user')['userGetUserPermissionMenus']
     >;
     readonly userLogin: UnwrapRef<
       typeof import('../src/service/api/user')['userLogin']
@@ -1109,6 +1137,9 @@ declare module '@vue/runtime-core' {
       typeof import('../src/constants/apiEnum')['DashboardEnum']
     >;
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>;
+    readonly PermissionEnum: UnwrapRef<
+      typeof import('../src/constants/apiEnum')['PermissionEnum']
+    >;
     readonly ResponseStatusCodeEnum: UnwrapRef<
       typeof import('../src/constants/apiEnum')['ResponseStatusCodeEnum']
     >;
@@ -1207,6 +1238,9 @@ declare module '@vue/runtime-core' {
     readonly effectScope: UnwrapRef<typeof import('vue')['effectScope']>;
     readonly extendRef: UnwrapRef<typeof import('@vueuse/core')['extendRef']>;
     readonly fetch: UnwrapRef<typeof import('../src/service/fetch')['default']>;
+    readonly generatePermissionRoutes: UnwrapRef<
+      typeof import('../src/utils/permission')['generatePermissionRoutes']
+    >;
     readonly getActivePinia: UnwrapRef<
       typeof import('pinia')['getActivePinia']
     >;
@@ -1291,6 +1325,12 @@ declare module '@vue/runtime-core' {
     readonly pausableWatch: UnwrapRef<
       typeof import('@vueuse/core')['pausableWatch']
     >;
+    readonly permission: UnwrapRef<
+      typeof import('../src/utils/permission')['default']
+    >;
+    readonly permissionGetList: UnwrapRef<
+      typeof import('../src/service/api/permission')['permissionGetList']
+    >;
     readonly provide: UnwrapRef<typeof import('vue')['provide']>;
     readonly reactify: UnwrapRef<typeof import('@vueuse/core')['reactify']>;
     readonly reactifyObject: UnwrapRef<
@@ -1336,6 +1376,9 @@ declare module '@vue/runtime-core' {
     >;
     readonly richUploadImg: UnwrapRef<
       typeof import('../src/service/api/rich')['richUploadImg']
+    >;
+    readonly routes2permissionJson: UnwrapRef<
+      typeof import('../src/utils/permission')['routes2permissionJson']
     >;
     readonly setActivePinia: UnwrapRef<
       typeof import('pinia')['setActivePinia']
@@ -1656,6 +1699,9 @@ declare module '@vue/runtime-core' {
     readonly usePermission: UnwrapRef<
       typeof import('@vueuse/core')['usePermission']
     >;
+    readonly usePermissionStore: UnwrapRef<
+      typeof import('../src/store/modules/permission')['usePermissionStore']
+    >;
     readonly usePointer: UnwrapRef<typeof import('@vueuse/core')['usePointer']>;
     readonly usePointerLock: UnwrapRef<
       typeof import('@vueuse/core')['usePointerLock']
@@ -1817,6 +1863,9 @@ declare module '@vue/runtime-core' {
     >;
     readonly userGetUserInfo: UnwrapRef<
       typeof import('../src/service/api/user')['userGetUserInfo']
+    >;
+    readonly userGetUserPermissionMenus: UnwrapRef<
+      typeof import('../src/service/api/user')['userGetUserPermissionMenus']
     >;
     readonly userLogin: UnwrapRef<
       typeof import('../src/service/api/user')['userLogin']

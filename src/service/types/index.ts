@@ -1,6 +1,8 @@
 export * from './user';
-export * from './table';
+export * from './permission';
+
 export * from './dashboard';
+export * from './table';
 export * from './rich';
 
 export interface FeatchParams {

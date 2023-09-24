@@ -20,7 +20,6 @@ const app = createApp(App);
   await app.use(directives);
   await setupMock();
   app.use(store);
-  await useUserStore().getLocalData();
   app.use(router);
   app.use(filters);
   app.use(i18n);

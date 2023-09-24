@@ -14,3 +14,10 @@ export function userGetUserInfo() {
     url: UserEnum.INFO,
   });
 }
+
+// 获取用户菜单权限
+export function userGetUserPermissionMenus() {
+  return ApiRequest.get({
+    url: UserEnum.PERMISSIONS,
+  });
+}

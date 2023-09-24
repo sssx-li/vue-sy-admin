@@ -1,3 +1,4 @@
+// 表格项
 export interface TableItem {
   id: number;
   name: string;
@@ -6,6 +7,7 @@ export interface TableItem {
   createTime: string;
 }
 
+// 表格返回信息
 export interface TableRes<T = TableItem> {
   data: T[];
   count: number;
