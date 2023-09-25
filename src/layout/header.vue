@@ -62,7 +62,7 @@ defineOptions({
 defineProps<{ isCollapse?: boolean }>();
 const emits = defineEmits(['update:isCollapse']);
 
-const { clearCache } = useLocalCache();
+const { removeCache } = useLocalCache();
 const route = useRoute();
 const router = useRouter();
 const { t } = useI18n();
@@ -115,7 +115,8 @@ const { userInfo } = storeToRefs(useUserStore());
 
 const handleCommand = (command: string) => {
   if (command === 'logout') {
-    clearCache();
+    removeCache('token');
+    removeCache('userInfo');
     window.location.reload();
   }
 };

@@ -1,8 +1,8 @@
 import permissions from '@/utils/permission';
+import { permissionRoutes } from '@/router';
 
 import type { PermissionStore } from '../types';
-import { PermissionItem } from '@/service/types';
-import { permissionRoutes } from '@/router';
+import type { PermissionItem } from '@/service/types';
 
 export const usePermissionStore = defineStore('permission', {
   state: (): PermissionStore => {

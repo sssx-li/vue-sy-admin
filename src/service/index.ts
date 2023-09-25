@@ -2,7 +2,7 @@ import Fetch from './fetch';
 import i18n from '@/i18n';
 const { t } = i18n.global;
 
-const { getCache, clearCache } = useLocalCache();
+const { getCache, removeCache } = useLocalCache();
 const { error } = useMessage();
 const whiteApis = ['/login']; // 接口白名单
 
@@ -25,7 +25,8 @@ export const ApiRequest = new Fetch({
       const { code, message } = ctx.data;
       if (code === ResponseStatusCodeEnum.tokenInvalid) {
         error(t('requestErrorTips.login_expired'));
-        clearCache();
+        removeCache('token');
+        removeCache('userInfo');
         location.reload();
       } else if (code !== ResponseStatusCodeEnum.success) {
         error(message || t('requestErrorTips.request_failed'));

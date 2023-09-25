@@ -28,9 +28,8 @@ export const useUserStore = defineStore('user', {
     async getLocalData() {
       const { getCache } = useLocalCache();
       if (!getCache('token')) return;
-      const { getPermissionList, getPermissionMenus } = usePermissionStore();
+      const { getPermissionMenus } = usePermissionStore();
       await this.getUserInfoAction();
-      await getPermissionList();
       const acceptRoutes = await getPermissionMenus();
       return acceptRoutes;
     },
