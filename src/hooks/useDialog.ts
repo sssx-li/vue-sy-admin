@@ -41,7 +41,10 @@ export function useDialog<T extends object>({
 
   // 打开弹窗
   const openDialog = (type: DialogType, row: Record<string, any> = {}) => {
-    Object.assign(formInline, type === 'create' ? { ...queryForm } : row);
+    Object.assign(
+      formInline,
+      type === 'create' ? { ...queryForm, ...row } : row
+    );
     dialogParams.type = type as DialogType;
     dialogParams.visible = true;
   };

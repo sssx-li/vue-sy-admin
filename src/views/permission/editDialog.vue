@@ -2,6 +2,7 @@
   <el-dialog
     v-model="visible"
     :title="type === 'create' ? $t('table.create') : $t('table.edit')"
+    @closed="resetDialog"
   >
     <el-form
       :model="formInline"
@@ -10,6 +11,19 @@
       label-width="100px"
       style="max-width: 460px"
     >
+      <el-form-item label="上级名称" prop="pid">
+        <el-tree-select
+          v-model="formInline.pid"
+          :disabled="disableTreeSelect"
+          :data="permissionOptions"
+          :render-after-expand="false"
+          :props="{ label: 'name', value: 'id' }"
+          check-strictly
+          clearable
+          filterable
+          class="w-100%"
+        />
+      </el-form-item>
       <el-form-item label="名称" prop="name">
         <el-input
           v-model="formInline.name"
@@ -52,7 +66,7 @@
 
 <script setup lang="ts">
 import type { DialogType } from '@/hooks/useDialog';
-import { PermissionType } from '@/service/types';
+import type { PermissionType, PermissionUIItem } from '@/service/types';
 
 defineOptions({
   name: 'permissionEditDialog',
@@ -62,17 +76,22 @@ defineOptions({
 export interface EmitType {
   (e: 'callback', type: DialogType, ext?: any): void;
 }
-
+defineProps<{
+  permissionOptions: PermissionUIItem[];
+  disableTreeSelect: boolean;
+}>();
 const emit = defineEmits<EmitType>();
 
 const queryForm: {
   path: string;
   type: PermissionType;
   name: string;
+  pid: string | null;
 } = {
   name: '',
   path: '',
   type: 'menu',
+  pid: null,
 };
 
 const options: { label: string; value: PermissionType }[] = [

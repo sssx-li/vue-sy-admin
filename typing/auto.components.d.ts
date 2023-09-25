@@ -41,6 +41,7 @@ declare module '@vue/runtime-core' {
     ElTable: typeof import('element-plus/es')['ElTable'];
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn'];
     ElTag: typeof import('element-plus/es')['ElTag'];
+    ElTreeSelect: typeof import('element-plus/es')['ElTreeSelect'];
     FollowChart: typeof import('./../src/views/dashboard/components/followChart.vue')['default'];
     'IEp:expand': typeof import('~icons/ep/expand')['default'];
     'IEp:fold': typeof import('~icons/ep/fold')['default'];

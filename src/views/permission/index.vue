@@ -25,9 +25,12 @@
         {{ row.type === 'menu' ? '菜单权限' : '功能权限' }}
       </template>
     </el-table-column>
-    <el-table-column prop="createTime" label="修改时间" />
-    <el-table-column prop="handler" label="操作">
+    <el-table-column prop="updateTime" label="修改时间" width="180px" />
+    <el-table-column prop="handler" label="操作" width="200px" fixed="right">
       <template #default="scope">
+        <el-button type="primary" link @click="addSubPermission(scope.row)">
+          添加下级
+        </el-button>
         <el-button
           type="primary"
           link
@@ -51,7 +54,12 @@
       :total="dataSource.count"
     />
   </div>
-  <editDialog @callback="getPageData" ref="dialogRef" />
+  <editDialog
+    :permissionOptions="permissionOptions"
+    :disableTreeSelect="disableTreeSelect"
+    @callback="getPageData"
+    ref="dialogRef"
+  />
 </template>
 
 <script setup lang="ts">
@@ -59,7 +67,7 @@ import { hasRoute } from '@/router';
 
 import editDialog from './editDialog.vue';
 
-import type { PermissionResItem } from '@/service/types';
+import type { PermissionResItem, PermissionUIItem } from '@/service/types';
 
 const route = useRoute();
 const router = useRouter();
@@ -86,10 +94,28 @@ const {
 
 const UISource = computed(() => permissionJson2permissiontree(dataSource.data));
 
+// 所有权限数据
+const permissionOptions = ref<PermissionUIItem[]>([]);
+const getAllPermission = async () => {
+  const { code, data } = await useHandleApiRes(permissionGetList());
+  if (code === ResponseStatusCodeEnum.success) {
+    permissionOptions.value = permissionJson2permissiontree(data.data);
+  }
+};
+getAllPermission();
+
+const disableTreeSelect = ref(false);
+// 添加下级
+const addSubPermission = (row: Record<string, any>) => {
+  disableTreeSelect.value = true;
+  dialogRef.value?.openDialog('create', { pid: row.id });
+};
+
 watch(
   permissionMenus,
   (val) => {
     // 如果当前路由没有权限 则跳转到第一个有权限的路由
+    console.log(route.name!, !hasRoute(route.name!));
     if (!hasRoute(route.name!)) {
       router.push({ path: val[0].path, replace: true });
     }

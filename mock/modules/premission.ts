@@ -15,13 +15,19 @@ const userMocks: MockItem[] = [
         data: toRaw(permissions),
         count: 0,
       };
-      // 模糊搜索 + 分页
-      resData.data = resData.data
-        .filter((item) => {
-          if (!name) return true;
-          return item.name.indexOf(name) !== -1;
-        })
-        .slice((+currentPage - 1) * +pageSize, +currentPage * +pageSize);
+      const renderData = (resData.data = resData.data.filter((item) => {
+        if (!name) return true;
+        return item.name.indexOf(name) !== -1;
+      }));
+      // 模糊搜索 + 分页(如果 pageSize 不存在时，返回所有数据)
+      if (!pageSize) {
+        resData.data = renderData;
+      } else {
+        resData.data = renderData.slice(
+          (+currentPage - 1) * +pageSize,
+          +currentPage * +pageSize
+        );
+      }
       resData.count = resData.data.length;
       return createResponse(resData);
     },
@@ -34,23 +40,24 @@ const userMocks: MockItem[] = [
       const store = usePermissionStore();
       const query = JSON.parse(request.requestBody);
       const index = store.permissions.findIndex((item) => item.id === query.id);
+      const cur = { ...query, pid: query.pid || null };
       await store.$patch((store) => {
         store.permissions[index] = {
-          ...query,
+          ...cur,
           updateTime: useDateFormat(useNow(), 'YYYY-MM-DD hh:mm:ss').value,
         };
         // 更新不同角色的权限表
         const adminIndex = store.adminPermissions.findIndex(
-          (item) => item.id === query.id
+          (item) => item.id === cur.id
         );
         if (adminIndex !== -1) {
-          store.adminPermissions[adminIndex] = query;
+          store.adminPermissions[adminIndex] = cur;
         }
         const normalIndex = store.normalPermissions.findIndex(
-          (item) => item.id === query.id
+          (item) => item.id === cur.id
         );
         if (normalIndex !== -1) {
-          store.normalPermissions[adminIndex] = query;
+          store.normalPermissions[adminIndex] = cur;
         }
       });
       await store.getPermissionMenus();
@@ -67,6 +74,7 @@ const userMocks: MockItem[] = [
       store.$patch((store) => {
         store.permissions.unshift({
           ...query,
+          pid: query.pid || null,
           id: query.path,
           createTime: useDateFormat(useNow(), 'YYYY-MM-DD hh:mm:ss').value,
         });
