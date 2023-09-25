@@ -23,6 +23,12 @@ export const permissionRoutes: Array<RouteRecordRaw> = [
     component: () => import('@/views/dashboard/index.vue'),
   },
   {
+    path: '/permission',
+    name: 'permission',
+    meta: { title: 'permission', icon: 'table' },
+    component: () => import('@/views/permission/index.vue'),
+  },
+  {
     path: '/table',
     name: 'table',
     meta: { title: 'table', icon: 'table' },
@@ -82,5 +88,22 @@ const router = createRouter({
   history: createWebHistory(),
   routes: constantRoutes,
 });
+
+// 判断是否存在改路由
+export function hasRoute(name: RouteRecordRaw['name']) {
+  return router.hasRoute(name!);
+}
+
+// 添加路由
+export function addRoute(route: RouteRecordRaw, replace = false) {
+  if (hasRoute(route.name) && !replace) return;
+  router.addRoute(route);
+}
+
+// 移除路由
+export function removeRoute(name: string) {
+  if (!hasRoute(name)) return;
+  router.removeRoute(name);
+}
 
 export default router;

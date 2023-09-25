@@ -1,7 +1,12 @@
 import { permissionRoutes } from '@/router';
 
-import type { PermissionItem } from '@/service/types';
+import type {
+  PermissionItem,
+  PermissionResItem,
+  PermissionUIItem,
+} from '@/service/types';
 
+// 权限路由转扁平数组
 export function routes2permissionJson(
   routes: Array<RouteRecordRaw>,
   pid: string | null = null
@@ -25,7 +30,7 @@ export function routes2permissionJson(
   return arr;
 }
 
-// 生成权限路由
+// 生成动态权限路由
 export function generatePermissionRoutes(
   arr: PermissionItem[],
   permissions: Array<RouteRecordRaw>
@@ -38,9 +43,9 @@ export function generatePermissionRoutes(
       if (!arrItem) continue;
       const acceptRoute = {
         ...route,
-        name: arrItem.name,
         meta: {
           ...route.meta,
+          title: arrItem.name,
           icon: arrItem.icon,
         },
       };
@@ -60,6 +65,24 @@ export function generatePermissionRoutes(
     return _routes;
   }
   return generateRoutes(permissions);
+}
+
+// 扁平数组转权限树
+export function permissionJson2permissiontree(
+  data: Array<PermissionResItem>,
+  pid: string | null = null
+) {
+  const arr: PermissionUIItem[] = [];
+  for (let index = 0; index < data.length; index++) {
+    const item = data[index];
+    if (item.pid === pid) {
+      arr.push({
+        ...item,
+        children: permissionJson2permissiontree(data, item.id),
+      });
+    }
+  }
+  return arr;
 }
 
 export default routes2permissionJson(permissionRoutes);

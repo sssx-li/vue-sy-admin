@@ -10,3 +10,12 @@ export interface PermissionItem {
   icon: string;
   type: PermissionType;
 }
+
+export interface PermissionResItem extends PermissionItem {
+  updateTime: string;
+  createTime: string;
+}
+
+export interface PermissionUIItem extends PermissionResItem {
+  children: PermissionUIItem[];
+}

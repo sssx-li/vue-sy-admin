@@ -34,7 +34,6 @@ export const ApiRequest = new Fetch({
       return ctx;
     },
     onFetchError(ctx) {
-      console.log('ctx', ctx);
       const { code, message } = ctx.error;
       if (code === ResponseStatusCodeEnum.aborted) {
         error(message || t('requestErrorTips.request_canceled'));

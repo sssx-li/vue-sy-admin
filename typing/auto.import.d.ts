@@ -60,6 +60,7 @@ declare global {
   const isReactive: typeof import('vue')['isReactive'];
   const isReadonly: typeof import('vue')['isReadonly'];
   const isRef: typeof import('vue')['isRef'];
+  const keyInI18n: typeof import('../src/utils/index')['keyInI18n'];
   const makeDestructurable: typeof import('@vueuse/core')['makeDestructurable'];
   const mapActions: typeof import('pinia')['mapActions'];
   const mapGetters: typeof import('pinia')['mapGetters'];
@@ -91,6 +92,7 @@ declare global {
   const pausableWatch: typeof import('@vueuse/core')['pausableWatch'];
   const permission: typeof import('../src/utils/permission')['default'];
   const permissionGetList: typeof import('../src/service/api/permission')['permissionGetList'];
+  const permissionJson2permissiontree: typeof import('../src/utils/permission')['permissionJson2permissiontree'];
   const provide: typeof import('vue')['provide'];
   const reactify: typeof import('@vueuse/core')['reactify'];
   const reactifyObject: typeof import('@vueuse/core')['reactifyObject'];
@@ -183,6 +185,7 @@ declare global {
   const useDeviceOrientation: typeof import('@vueuse/core')['useDeviceOrientation'];
   const useDevicePixelRatio: typeof import('@vueuse/core')['useDevicePixelRatio'];
   const useDevicesList: typeof import('@vueuse/core')['useDevicesList'];
+  const useDialog: typeof import('../src/hooks/useDialog')['useDialog'];
   const useDisplayMedia: typeof import('@vueuse/core')['useDisplayMedia'];
   const useDocumentVisibility: typeof import('@vueuse/core')['useDocumentVisibility'];
   const useDraggable: typeof import('@vueuse/core')['useDraggable'];
@@ -486,6 +489,9 @@ declare module 'vue' {
     readonly isReactive: UnwrapRef<typeof import('vue')['isReactive']>;
     readonly isReadonly: UnwrapRef<typeof import('vue')['isReadonly']>;
     readonly isRef: UnwrapRef<typeof import('vue')['isRef']>;
+    readonly keyInI18n: UnwrapRef<
+      typeof import('../src/utils/index')['keyInI18n']
+    >;
     readonly makeDestructurable: UnwrapRef<
       typeof import('@vueuse/core')['makeDestructurable']
     >;
@@ -550,6 +556,9 @@ declare module 'vue' {
     >;
     readonly permissionGetList: UnwrapRef<
       typeof import('../src/service/api/permission')['permissionGetList']
+    >;
+    readonly permissionJson2permissiontree: UnwrapRef<
+      typeof import('../src/utils/permission')['permissionJson2permissiontree']
     >;
     readonly provide: UnwrapRef<typeof import('vue')['provide']>;
     readonly reactify: UnwrapRef<typeof import('@vueuse/core')['reactify']>;
@@ -764,6 +773,9 @@ declare module 'vue' {
     >;
     readonly useDevicesList: UnwrapRef<
       typeof import('@vueuse/core')['useDevicesList']
+    >;
+    readonly useDialog: UnwrapRef<
+      typeof import('../src/hooks/useDialog')['useDialog']
     >;
     readonly useDisplayMedia: UnwrapRef<
       typeof import('@vueuse/core')['useDisplayMedia']
@@ -1266,6 +1278,9 @@ declare module '@vue/runtime-core' {
     readonly isReactive: UnwrapRef<typeof import('vue')['isReactive']>;
     readonly isReadonly: UnwrapRef<typeof import('vue')['isReadonly']>;
     readonly isRef: UnwrapRef<typeof import('vue')['isRef']>;
+    readonly keyInI18n: UnwrapRef<
+      typeof import('../src/utils/index')['keyInI18n']
+    >;
     readonly makeDestructurable: UnwrapRef<
       typeof import('@vueuse/core')['makeDestructurable']
     >;
@@ -1330,6 +1345,9 @@ declare module '@vue/runtime-core' {
     >;
     readonly permissionGetList: UnwrapRef<
       typeof import('../src/service/api/permission')['permissionGetList']
+    >;
+    readonly permissionJson2permissiontree: UnwrapRef<
+      typeof import('../src/utils/permission')['permissionJson2permissiontree']
     >;
     readonly provide: UnwrapRef<typeof import('vue')['provide']>;
     readonly reactify: UnwrapRef<typeof import('@vueuse/core')['reactify']>;
@@ -1544,6 +1562,9 @@ declare module '@vue/runtime-core' {
     >;
     readonly useDevicesList: UnwrapRef<
       typeof import('@vueuse/core')['useDevicesList']
+    >;
+    readonly useDialog: UnwrapRef<
+      typeof import('../src/hooks/useDialog')['useDialog']
     >;
     readonly useDisplayMedia: UnwrapRef<
       typeof import('@vueuse/core')['useDisplayMedia']

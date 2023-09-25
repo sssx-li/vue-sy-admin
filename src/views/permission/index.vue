@@ -1,42 +1,42 @@
 <template>
   <el-form @submit.prevent :inline="true" :model="searchForm">
-    <el-form-item :label="$t('table.username')">
-      <el-input
-        v-model="searchForm.name"
-        :placeholder="$t('table.tips.enter_username')"
-      />
+    <el-form-item label="名称">
+      <el-input v-model="searchForm.name" placeholder="请输入名称" />
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" @click="refreshData">
-        {{ $t('table.search') }}
-      </el-button>
+      <el-button type="primary" @click="refreshData"> 搜索 </el-button>
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="dialogRef?.openDialog('create')">
-        {{ $t('table.create') }}
+        添加
       </el-button>
     </el-form-item>
   </el-form>
-  <el-table :data="dataSource.data" style="width: 100%" v-loading="loading">
-    <el-table-column prop="name" :label="$t('table.username')" />
-    <el-table-column prop="age" :label="$t('table.age')" />
-    <el-table-column prop="sex" :label="$t('table.sex')">
-      <template #default="scope">
-        {{ scope.row.sex === 1 ? $t('table.man') : $t('table.woman') }}
+  <el-table
+    :data="UISource"
+    row-key="id"
+    style="width: 100%"
+    v-loading="loading"
+  >
+    <el-table-column prop="name" label="名称" />
+    <el-table-column prop="path" label="路径" />
+    <el-table-column prop="type" label="类型">
+      <template #default="{ row }">
+        {{ row.type === 'menu' ? '菜单权限' : '功能权限' }}
       </template>
     </el-table-column>
-    <el-table-column prop="createTime" :label="$t('table.create_time')" />
-    <el-table-column prop="handler" :label="$t('table.operate')">
+    <el-table-column prop="createTime" label="修改时间" />
+    <el-table-column prop="handler" label="操作">
       <template #default="scope">
         <el-button
           type="primary"
           link
           @click="dialogRef?.openDialog('edit', scope.row)"
         >
-          {{ $t('table.edit') }}
+          编辑
         </el-button>
         <el-button type="danger" link @click="handleDelete(scope.row)">
-          {{ $t('table.delete') }}
+          删除
         </el-button>
       </template>
     </el-table-column>
@@ -55,9 +55,15 @@
 </template>
 
 <script setup lang="ts">
+import { hasRoute } from '@/router';
+
 import editDialog from './editDialog.vue';
 
-import type { TableItem } from '@/service/types';
+import type { PermissionResItem } from '@/service/types';
+
+const route = useRoute();
+const router = useRouter();
+const { permissionMenus } = storeToRefs(usePermissionStore());
 
 const dialogRef = ref<InstanceType<typeof editDialog>>();
 const searchForm = reactive({
@@ -73,14 +79,23 @@ const {
   pageSizeChange,
   currentPageChange,
   handleDelete,
-} = usePage<TableItem>({
-  url: TableEnum.LIST,
+} = usePage<PermissionResItem>({
+  url: PermissionEnum.PERMISSIONS,
   searchForm,
 });
+
+const UISource = computed(() => permissionJson2permissiontree(dataSource.data));
+
+watch(
+  permissionMenus,
+  (val) => {
+    // 如果当前路由没有权限 则跳转到第一个有权限的路由
+    if (!hasRoute(route.name!)) {
+      router.push({ path: val[0].path, replace: true });
+    }
+  },
+  { deep: true }
+);
 </script>
 
-<style lang="scss" scoped>
-.el-table {
-  height: calc(100vh - 220px);
-}
-</style>
+<style lang="scss" scoped></style>

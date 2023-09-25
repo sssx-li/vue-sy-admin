@@ -1,5 +1,7 @@
 import permissions from '@/utils/permission';
-import { permissionRoutes } from '@/router';
+import { addRoute, permissionRoutes } from '@/router';
+
+import Layout from '@/layout/index.vue';
 
 import type { PermissionStore } from '../types';
 import type { PermissionItem } from '@/service/types';
@@ -29,7 +31,14 @@ export const usePermissionStore = defineStore('permission', {
         permissionRoutes
       );
       this.permissionMenus = routes;
-      return routes;
+      const layoutRoutes = {
+        path: '/',
+        name: 'layout',
+        component: Layout,
+        redirect: routes[0].path,
+        children: [...routes],
+      };
+      addRoute(layoutRoutes, true);
     },
   },
   persist: {

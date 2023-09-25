@@ -12,6 +12,8 @@ const messages = {
 export type LangTypes = typeof messages.zh;
 export type LangType = keyof typeof messages;
 
+export const langObj = messages.zh;
+
 const i18n = createI18n({
   locale: getCache('lang'),
   fallbackLocale: 'zh', // 设置备用                                                                                                                                                                                               语言

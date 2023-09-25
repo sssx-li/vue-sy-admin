@@ -33,7 +33,7 @@ const tableMocks: MockItem[] = [
         })
         .slice((+currentPage - 1) * +pageSize, +currentPage * +pageSize);
       resData.count = tableData.data.length;
-      return createResponse<TableRes>(resData);
+      return createResponse(resData);
     },
   },
   // 修改项

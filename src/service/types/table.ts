@@ -6,9 +6,3 @@ export interface TableItem {
   age: number;
   createTime: string;
 }
-
-// 表格返回信息
-export interface TableRes<T = TableItem> {
-  data: T[];
-  count: number;
-}

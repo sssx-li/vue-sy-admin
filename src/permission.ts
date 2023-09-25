@@ -3,9 +3,6 @@ import 'nprogress/nprogress.css';
 NProgress.configure({ showSpinner: false });
 
 import router from '@/router';
-import Layout from '@/layout/index.vue';
-
-let isLoad = false;
 
 router.beforeEach(async (to, from, next) => {
   NProgress.start();
@@ -16,22 +13,16 @@ router.beforeEach(async (to, from, next) => {
       next({ path: '/' });
       return;
     }
-    if (!isLoad) {
-      const acceptRoutes = await useUserStore().getLocalData();
-      if (!acceptRoutes || acceptRoutes!.length === 0) {
+    const store = useUserStore();
+    if (!store.isLoad) {
+      await store.getLocalData();
+      const { permissionMenus } = usePermissionStore();
+      if (!permissionMenus || permissionMenus.length === 0) {
         next({ path: '/404' });
-        isLoad = true;
+        store.isLoad = true;
         return;
       }
-      const layoutRoutes = {
-        path: '/',
-        name: 'layout',
-        component: Layout,
-        redirect: acceptRoutes[0].path,
-        children: [...acceptRoutes],
-      };
-      router.addRoute(layoutRoutes);
-      isLoad = true;
+      store.isLoad = true;
       next({ path: to.path, replace: true });
     } else {
       next();
