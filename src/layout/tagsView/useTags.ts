@@ -3,7 +3,6 @@ import type { ElScrollbar } from 'element-plus';
 export interface Tag {
   name: string;
   path: string;
-  subName?: string;
 }
 
 export const SPACING = 4;
@@ -90,7 +89,6 @@ export function useTags() {
       const tag = {
         name: `${route.meta.title}`,
         path: route.path,
-        subName: `${route.meta.subTitle}`,
       };
       tagsView.addTag(tag);
       nextTick(() => moveToTag(tag));
