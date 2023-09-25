@@ -1,6 +1,7 @@
 import type { FormInstance, FormRules } from 'element-plus';
 
 export type DialogType = 'create' | 'edit';
+export type DialogCallbackType = DialogType | 'close';
 export interface DialogParams {
   visible: boolean;
   loading: boolean;
@@ -24,7 +25,7 @@ export function useDialog<T extends object>({
   url?: string;
   queryForm?: T;
   validateRules?: ComputedRef<FormRules> | FormRules;
-  callback?: () => any;
+  callback?: (type: DialogType | 'close') => any;
 }) {
   const { success } = useMessage();
   const { t } = useI18n();
@@ -55,6 +56,7 @@ export function useDialog<T extends object>({
     dialogParams.loading = false;
     Object.assign(formInline, { ...queryForm });
     formRef.value?.resetFields();
+    callback('close');
   };
   // 确认
   const handleConfirm = (): void => {
@@ -79,7 +81,7 @@ export function useDialog<T extends object>({
     );
     if (code === ResponseStatusCodeEnum.success) {
       success(t('tips.create_success'));
-      await callback();
+      await callback('create');
       resetDialog();
     }
   };
@@ -95,7 +97,7 @@ export function useDialog<T extends object>({
     );
     if (code === ResponseStatusCodeEnum.success) {
       success(t('tips.edit_success'));
-      await callback();
+      await callback('edit');
       resetDialog();
     }
   };

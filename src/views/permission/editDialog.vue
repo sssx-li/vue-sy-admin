@@ -65,7 +65,7 @@
 </template>
 
 <script setup lang="ts">
-import type { DialogType } from '@/hooks/useDialog';
+import type { DialogCallbackType } from '@/hooks/useDialog';
 import type { PermissionType, PermissionUIItem } from '@/service/types';
 
 defineOptions({
@@ -74,7 +74,8 @@ defineOptions({
 });
 
 export interface EmitType {
-  (e: 'callback', type: DialogType, ext?: any): void;
+  (e: 'callback', type: DialogCallbackType): void;
+  (e: 'update:disableTreeSelect', value: boolean): void;
 }
 defineProps<{
   permissionOptions: PermissionUIItem[];
@@ -94,7 +95,7 @@ const queryForm: {
   pid: null,
 };
 
-const options: { label: string; value: PermissionType }[] = [
+const options: { label: string; value: PermissionType | 'close' }[] = [
   { label: '菜单权限', value: 'menu' },
   { label: '按钮权限', value: 'button' },
 ];
@@ -137,8 +138,12 @@ const {
       },
     ],
   },
-  callback: () => {
-    emit('callback', type.value);
+  callback: (_type: DialogCallbackType) => {
+    if (_type === 'close') {
+      emit('update:disableTreeSelect', false);
+    } else {
+      emit('callback', _type);
+    }
   },
 });
 

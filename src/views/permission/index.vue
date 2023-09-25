@@ -56,7 +56,7 @@
   </div>
   <editDialog
     :permissionOptions="permissionOptions"
-    :disableTreeSelect="disableTreeSelect"
+    v-model:disableTreeSelect="disableTreeSelect"
     @callback="getPageData"
     ref="dialogRef"
   />

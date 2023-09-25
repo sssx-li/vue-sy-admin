@@ -41,7 +41,7 @@
 </template>
 
 <script setup lang="ts">
-import type { DialogType } from '@/hooks/useDialog';
+import type { DialogCallbackType } from '@/hooks/useDialog';
 import type { FormRules } from 'element-plus';
 
 defineOptions({
@@ -50,7 +50,7 @@ defineOptions({
 });
 
 export interface EmitType {
-  (e: 'callback', type: DialogType): void;
+  (e: 'callback', type: DialogCallbackType): void;
 }
 
 const emit = defineEmits<EmitType>();
@@ -110,8 +110,10 @@ const {
   url: TableEnum.LIST,
   queryForm,
   validateRules: ruleConfig,
-  callback: () => {
-    emit('callback', type.value);
+  callback: (_type: DialogCallbackType) => {
+    if (_type !== 'close') {
+      emit('callback', type.value);
+    }
   },
 });
 
