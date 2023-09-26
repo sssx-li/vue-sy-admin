@@ -31,7 +31,6 @@ export const usePermissionStore = defineStore('permission', {
         null,
         true
       ) as any as RouteRecordRaw[];
-      this.permissionMenus = routes;
       const layoutRoutes = {
         path: '/',
         name: 'layout',
@@ -40,6 +39,7 @@ export const usePermissionStore = defineStore('permission', {
         children: [...routes],
       };
       addRoute(layoutRoutes, true);
+      this.permissionMenus = routes;
     },
   },
   persist: {
