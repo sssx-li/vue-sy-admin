@@ -18,7 +18,20 @@
     style="width: 100%"
     v-loading="loading"
   >
-    <el-table-column prop="name" label="名称" />
+    <el-table-column prop="meta.title" label="名称">
+      <template #default="{ row }">
+        {{
+          keyInI18n(row.meta.title as string, 'nav')
+            ? $t(`nav.${row.meta.title}`)
+            : row.meta.title
+        }}
+      </template>
+    </el-table-column>
+    <el-table-column prop="meta.icon" label="图标">
+      <template #default="{ row }">
+        <svg-icon :name="row.meta.icon"></svg-icon>
+      </template>
+    </el-table-column>
     <el-table-column prop="path" label="路径" />
     <el-table-column prop="type" label="类型">
       <template #default="{ row }">
