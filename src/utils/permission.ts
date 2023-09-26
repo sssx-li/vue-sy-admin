@@ -9,20 +9,23 @@ import type {
 // 权限路由转扁平数组
 export function routes2permissionJson(
   routes: Array<RouteRecordRaw>,
-  pid: string | null = null
+  pid: string | number | null = null,
+  id = 0
 ): PermissionItem[] {
   const arr: PermissionItem[] = routes.reduce((per, cur) => {
+    id++;
     const { path, name, meta, children } = cur;
     per.push({
       pid,
-      id: path,
+      id,
       path: path,
       name: name as string,
-      icon: meta?.icon as string,
       type: 'menu',
+      meta: meta as any,
+      component: null,
     });
     if (children && children.length > 0) {
-      const _arr = routes2permissionJson(children, cur.path);
+      const _arr = routes2permissionJson(children, id, id * 10);
       return per.concat(_arr);
     }
     return per;
@@ -30,55 +33,26 @@ export function routes2permissionJson(
   return arr;
 }
 
-// 生成动态权限路由
-export function generatePermissionRoutes(
-  arr: PermissionItem[],
-  permissions: Array<RouteRecordRaw>
-): Array<RouteRecordRaw> {
-  function generateRoutes(routes: Array<RouteRecordRaw>) {
-    const _routes: Array<RouteRecordRaw> = [];
-    for (let index = 0; index < routes.length; index++) {
-      const route = routes[index];
-      const arrItem = arr.find((item) => item.path === route.path);
-      if (!arrItem) continue;
-      const acceptRoute = {
-        ...route,
-        meta: {
-          ...route.meta,
-          title: arrItem.name,
-          icon: arrItem.icon,
-        },
-      };
-      if (!route.children || route.children.length === 0) {
-        _routes.push(acceptRoute);
-      } else {
-        const children = generateRoutes(route.children);
-        // 如果 children 为空数组， 跳出本次循环
-        if (!children || children.length === 0) continue;
-        _routes.push({
-          ...acceptRoute,
-          redirect: children[0].path, // 重定向
-          children,
-        });
-      }
-    }
-    return _routes;
-  }
-  return generateRoutes(permissions);
-}
-
-// 扁平数组转权限树
-export function permissionJson2permissiontree(
-  data: Array<PermissionResItem>,
-  pid: string | null = null
-) {
-  const arr: PermissionUIItem[] = [];
+const routesModules = import.meta.glob('../views/**/**.vue');
+// 扁平数组转权限树 | 动态生成权限路由树
+export function permissionJson2permissiontree<
+  T extends PermissionItem = PermissionResItem,
+  U extends PermissionItem = PermissionUIItem
+>(data: Array<T>, pid: string | number | null = null, isRouter = false): U[] {
+  const arr: U[] = [];
   for (let index = 0; index < data.length; index++) {
-    const item = data[index];
+    const item = data[index] as any as U;
+    const createRouteComponent = isRouter && item!.meta?.component;
     if (item.pid === pid) {
+      if (createRouteComponent) {
+        item.component = routesModules[item.meta!.component as string];
+      }
+      // 如果没有匹配得文件路径 则跳过当前循环
+      if (isRouter && (!item!.meta?.component || !item.component)) continue;
       arr.push({
         ...item,
-        children: permissionJson2permissiontree(data, item.id),
+        component: createRouteComponent ? item.component : null,
+        children: permissionJson2permissiontree(data, item.id, isRouter),
       });
     }
   }

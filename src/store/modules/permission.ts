@@ -1,5 +1,5 @@
 import permissions from '@/utils/permission';
-import { addRoute, permissionRoutes } from '@/router';
+import { addRoute } from '@/router';
 
 import Layout from '@/layout/index.vue';
 
@@ -26,10 +26,11 @@ export const usePermissionStore = defineStore('permission', {
       const { data } = await useHandleApiRes<PermissionItem[]>(
         userGetUserPermissionMenus()
       );
-      const routes = generatePermissionRoutes(
+      const routes = permissionJson2permissiontree<PermissionItem>(
         data.filter((item) => item.type === 'menu'),
-        permissionRoutes
-      );
+        null,
+        true
+      ) as any as RouteRecordRaw[];
       this.permissionMenus = routes;
       const layoutRoutes = {
         path: '/',

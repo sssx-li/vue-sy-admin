@@ -24,18 +24,32 @@
           class="w-100%"
         />
       </el-form-item>
-      <el-form-item label="名称" prop="name">
+      <el-form-item label="名称" prop="meta.title">
         <el-input
-          v-model="formInline.name"
+          v-model="formInline.meta.title"
           autocomplete="off"
-          placeholder="请输入名称"
+          placeholder="eg. 首页"
         />
       </el-form-item>
       <el-form-item label="路径" prop="path">
         <el-input
           v-model="formInline.path"
           autocomplete="off"
-          placeholder="请输入路径"
+          placeholder="eg. /dashboard"
+        />
+      </el-form-item>
+      <el-form-item label="图标" prop="meta.icon">
+        <el-input
+          v-model="formInline.meta.icon"
+          autocomplete="off"
+          placeholder="eg. dashboard"
+        />
+      </el-form-item>
+      <el-form-item label="组件路径" prop="meta.component">
+        <el-input
+          v-model="formInline.meta.component"
+          autocomplete="off"
+          placeholder="eg. ../view/dashboard/index.vue"
         />
       </el-form-item>
       <el-form-item label="类型" prop="type">
@@ -66,7 +80,11 @@
 
 <script setup lang="ts">
 import type { DialogCallbackType } from '@/hooks/useDialog';
-import type { PermissionType, PermissionUIItem } from '@/service/types';
+import type {
+  PermissionType,
+  PermissionUIItem,
+  RouteMeta,
+} from '@/service/types';
 
 defineOptions({
   name: 'permissionEditDialog',
@@ -86,13 +104,13 @@ const emit = defineEmits<EmitType>();
 const queryForm: {
   path: string;
   type: PermissionType;
-  name: string;
   pid: string | null;
+  meta: RouteMeta;
 } = {
-  name: '',
   path: '',
   type: 'menu',
   pid: null,
+  meta: { icon: '', title: '', component: '' },
 };
 
 const options: { label: string; value: PermissionType | 'close' }[] = [
@@ -116,7 +134,7 @@ const {
   url: PermissionEnum.PERMISSIONS,
   queryForm,
   validateRules: {
-    name: [
+    'meta.title': [
       {
         required: true,
         message: '请输入名称',

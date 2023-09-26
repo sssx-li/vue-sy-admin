@@ -99,7 +99,11 @@ const permissionOptions = ref<PermissionUIItem[]>([]);
 const getAllPermission = async () => {
   const { code, data } = await useHandleApiRes(permissionGetList());
   if (code === ResponseStatusCodeEnum.success) {
-    permissionOptions.value = permissionJson2permissiontree(data.data);
+    permissionOptions.value = permissionJson2permissiontree(
+      data.data,
+      null,
+      false
+    );
   }
 };
 getAllPermission();

@@ -40,7 +40,11 @@ const userMocks: MockItem[] = [
       const store = usePermissionStore();
       const query = JSON.parse(request.requestBody);
       const index = store.permissions.findIndex((item) => item.id === query.id);
-      const cur = { ...query, pid: query.pid || null };
+      const cur = {
+        ...query,
+        pid: query.pid || null,
+      };
+      console.log('cur', cur);
       await store.$patch((store) => {
         store.permissions[index] = {
           ...cur,
@@ -71,11 +75,12 @@ const userMocks: MockItem[] = [
     response: (schema, request) => {
       const query = JSON.parse(request.requestBody);
       const store = usePermissionStore();
+      const maxId = Math.max(...store.permissions.map((item) => +item.id));
       store.$patch((store) => {
         store.permissions.unshift({
           ...query,
           pid: query.pid || null,
-          id: query.path,
+          id: maxId + 1,
           createTime: useDateFormat(useNow(), 'YYYY-MM-DD hh:mm:ss').value,
         });
       });
@@ -90,13 +95,13 @@ const userMocks: MockItem[] = [
       const { id } = request.queryParams;
       const store = usePermissionStore();
       await store.$patch((store) => {
-        store.permissions = store.permissions.filter((item) => item.id !== id);
+        store.permissions = store.permissions.filter((item) => item.id !== +id);
         // 更新不同角色的权限表
         store.adminPermissions = store.adminPermissions.filter(
-          (item) => item.id !== id
+          (item) => item.id !== +id
         );
         store.normalPermissions = store.normalPermissions.filter(
-          (item) => item.id !== id
+          (item) => item.id !== +id
         );
       });
       await store.getPermissionMenus();
