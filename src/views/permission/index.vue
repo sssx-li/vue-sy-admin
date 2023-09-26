@@ -132,7 +132,6 @@ watch(
   permissionMenus,
   (val) => {
     // 如果当前路由没有权限 则跳转到第一个有权限的路由
-    console.log(route.name!, !hasRoute(route.name!));
     if (!hasRoute(route.name!)) {
       router.push({ path: val[0].path, replace: true });
     }

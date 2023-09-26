@@ -33,26 +33,42 @@ export function routes2permissionJson(
   return arr;
 }
 
-const routesModules = import.meta.glob('../views/**/**.vue');
+const routesModules: Record<string, any> = import.meta.glob(
+  '../views/**/**.vue'
+);
+
+// 生产权限路由
+export function generatePermissionRoutes(arr: PermissionItem[]) {
+  const _arr = arr.filter((item) => item.type === 'menu');
+  const routes: PermissionItem[] = [];
+  for (let index = 0; index < _arr.length; index++) {
+    const route = _arr[index];
+    const asyncComponent = routesModules[route.meta!.component as string];
+    if (asyncComponent) {
+      routes.push({ ...route, component: asyncComponent });
+    }
+  }
+  return routes;
+}
+
 // 扁平数组转权限树 | 动态生成权限路由树
 export function permissionJson2permissiontree<
   T extends PermissionItem = PermissionResItem,
   U extends PermissionItem = PermissionUIItem
->(data: Array<T>, pid: string | number | null = null, isRouter = false): U[] {
+>(data: Array<T>, pid: string | number | null = null, isMenu = false): U[] {
   const arr: U[] = [];
   for (let index = 0; index < data.length; index++) {
     const item = data[index] as any as U;
-    const createRouteComponent = isRouter && item!.meta?.component;
     if (item.pid === pid) {
-      if (createRouteComponent) {
-        item.component = routesModules[item.meta!.component as string];
+      let asyncComponent;
+      if (item.meta!.component) {
+        asyncComponent = routesModules[item.meta!.component as string];
       }
-      // 如果没有匹配得文件路径 则跳过当前循环
-      if (isRouter && (!item!.meta?.component || !item.component)) continue;
+      // 如果没有匹配到文件路径 则跳过当前循环
+      if (isMenu && !asyncComponent) continue;
       arr.push({
         ...item,
-        component: createRouteComponent ? item.component : null,
-        children: permissionJson2permissiontree(data, item.id, isRouter),
+        children: permissionJson2permissiontree(data, item.id, isMenu),
       });
     }
   }

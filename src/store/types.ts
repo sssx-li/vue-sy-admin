@@ -1,4 +1,9 @@
-import type { PermissionItem, UserInfo, UserItem } from '@/service/types';
+import type {
+  PermissionItem,
+  PermissionUIItem,
+  UserInfo,
+  UserItem,
+} from '@/service/types';
 
 export interface UserStore {
   userList: UserItem[];
@@ -8,7 +13,7 @@ export interface UserStore {
 
 export interface PermissionStore {
   permissions: PermissionItem[];
-  permissionMenus: Array<RouteRecordRaw>;
+  permissionMenus: Array<PermissionUIItem>;
   adminPermissions: PermissionItem[];
   normalPermissions: PermissionItem[];
 }

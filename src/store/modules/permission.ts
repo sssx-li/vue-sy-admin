@@ -26,11 +26,7 @@ export const usePermissionStore = defineStore('permission', {
       const { data } = await useHandleApiRes<PermissionItem[]>(
         userGetUserPermissionMenus()
       );
-      const routes = permissionJson2permissiontree<PermissionItem>(
-        data.filter((item) => item.type === 'menu'),
-        null,
-        true
-      ) as any as RouteRecordRaw[];
+      const routes = generatePermissionRoutes(data) as any as RouteRecordRaw[];
       const layoutRoutes = {
         path: '/',
         name: 'layout',
@@ -39,7 +35,12 @@ export const usePermissionStore = defineStore('permission', {
         children: [...routes],
       };
       addRoute(layoutRoutes, true);
-      this.permissionMenus = routes;
+      const menus = permissionJson2permissiontree(
+        data.filter((item) => item.type === 'menu'),
+        null,
+        true
+      );
+      this.permissionMenus = menus;
     },
   },
   persist: {
