@@ -7,10 +7,11 @@
       always
       ref="scrollTagsRef"
     >
-      <div class="flex flex-nowrap">
+      <div class="flex flex-nowrap" ref="dragRef">
         <!-- 这里的必须将 disable-transitions设置为true;否则动画会影响el-scrollbar的更新计算导致滚动到当前tag失败(可以延迟调用解决) -->
         <el-tag
           class="mx-4px cursor-pointer tag-item"
+          draggable="true"
           closable
           disable-transitions
           :effect="$route.path === item.path ? 'light' : 'plain'"
@@ -49,6 +50,7 @@
 import { useZIndex } from 'element-plus';
 import { useTags } from './useTags';
 import { useTagMenus } from './useTagMenus';
+import { useDraggable } from './useDraggable';
 defineOptions({
   name: 'LayoutTags',
   inheritAttrs: false,
@@ -67,6 +69,7 @@ const {
   openTagMenu,
   handleMenuClick,
 } = useTagMenus(scrollTagsRef, tagsView);
+const { dragRef } = useDraggable();
 </script>
 
 <style lang="scss" scoped>
@@ -81,6 +84,10 @@ const {
     &:hover {
       background-color: var(--el-fill-color-light);
     }
+  }
+  .moving {
+    background: transparent;
+    border: 1px dashed #1677ff;
   }
 }
 </style>
