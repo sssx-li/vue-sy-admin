@@ -7,23 +7,30 @@
       always
       ref="scrollTagsRef"
     >
-      <div class="flex flex-nowrap" ref="dragRef">
-        <!-- 这里的必须将 disable-transitions设置为true;否则动画会影响el-scrollbar的更新计算导致滚动到当前tag失败(可以延迟调用解决) -->
-        <el-tag
-          class="mx-4px cursor-pointer tag-item"
-          draggable="true"
-          closable
-          disable-transitions
-          :effect="$route.path === item.path ? 'light' : 'plain'"
-          v-for="item in tagsView.tags.value"
-          :key="item.path"
-          @click="$router.push(item.path)"
-          @close="closeTag(item)"
-          @contextmenu.prevent="openTagMenu(item, $event)"
-        >
-          {{ $t(`nav.${item.name}`, { subTitle: item.subName }) }}
-        </el-tag>
-      </div>
+      <Draggable
+        v-model="tagsView.tags.value"
+        class="tags-group flex flex-nowrap"
+        item-key="path"
+        :animation="300"
+        group="tags"
+        :disabled="false"
+        ghostClass="moving"
+      >
+        <template #item="{ element }">
+          <!-- 这里的必须将 disable-transitions设置为true;否则动画会影响el-scrollbar的更新计算导致滚动到当前tag失败(可以延迟调用解决) -->
+          <el-tag
+            class="mx-4px cursor-pointer tag-item"
+            closable
+            disable-transitions
+            :effect="$route.path === element.path ? 'light' : 'plain'"
+            @click="$router.push(element.path)"
+            @close="closeTag(element)"
+            @contextmenu.prevent="openTagMenu(element, $event)"
+          >
+            {{ $t(`nav.${element.name}`, { subTitle: element.subName }) }}
+          </el-tag>
+        </template>
+      </Draggable>
     </el-scrollbar>
     <ul
       :class="['tags-menus', 'absolute', 'p-4px', `w-${MENU_WIDTH}px`]"
@@ -50,7 +57,7 @@
 import { useZIndex } from 'element-plus';
 import { useTags } from './useTags';
 import { useTagMenus } from './useTagMenus';
-import { useDraggable } from './useDraggable';
+import Draggable from 'vueDraggable';
 defineOptions({
   name: 'LayoutTags',
   inheritAttrs: false,
@@ -69,7 +76,6 @@ const {
   openTagMenu,
   handleMenuClick,
 } = useTagMenus(scrollTagsRef, tagsView);
-const { dragRef } = useDraggable();
 </script>
 
 <style lang="scss" scoped>
@@ -85,9 +91,13 @@ const { dragRef } = useDraggable();
       background-color: var(--el-fill-color-light);
     }
   }
+}
+
+.tags-group {
   .moving {
     background: transparent;
     border: 1px dashed #1677ff;
+    color: #fff;
   }
 }
 </style>
