@@ -23,7 +23,11 @@
           clearable
           filterable
           class="w-100%"
-        />
+        >
+          <template #default="{ data: { name } }">
+            {{ keyInI18n(name as string, 'nav') ? $t(`nav.${name}`) : name }}
+          </template>
+        </el-tree-select>
       </el-form-item>
       <el-form-item label="名称" prop="meta.title">
         <el-input

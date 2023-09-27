@@ -61,13 +61,14 @@ export function permissionJson2permissiontree<
     const item = data[index] as any as U;
     if (item.pid === pid) {
       let asyncComponent;
-      if (item.meta!.component) {
+      if (item.meta!.component && isMenu) {
         asyncComponent = routesModules[item.meta!.component as string];
       }
       // 如果没有匹配到文件路径 则跳过当前循环
       if (isMenu && !asyncComponent) continue;
       arr.push({
         ...item,
+        component: asyncComponent,
         children: permissionJson2permissiontree(data, item.id, isMenu),
       });
     }

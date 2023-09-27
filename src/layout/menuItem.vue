@@ -15,7 +15,11 @@
         }}
       </span>
     </el-menu-item>
-    <el-sub-menu :index="item.path" v-else>
+    <el-sub-menu
+      :index="item.path"
+      v-else
+      @click.capture="$router.push({ path: item.path })"
+    >
       <template #title>
         <el-icon :size="14" v-if="item.meta && item.meta.icon">
           <svg-icon :name="item.meta.icon as string" />

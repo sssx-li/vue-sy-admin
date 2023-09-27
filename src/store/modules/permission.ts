@@ -26,13 +26,15 @@ export const usePermissionStore = defineStore('permission', {
       const { data } = await useHandleApiRes<PermissionItem[]>(
         userGetUserPermissionMenus()
       );
+      // 这里不使用树形是因为菜单可能分配到其它各个菜单下，因为部分文件可能没有<router-view>组件，会导致无法展示正确的内容
+      // 当然 如果固定菜单(即菜单不能分配到其它菜单下) 可以使用 permissionMenus 的数据来加载路由
       const routes = generatePermissionRoutes(data) as any as RouteRecordRaw[];
       const layoutRoutes = {
         path: '/',
         name: 'layout',
         component: Layout,
         redirect: routes[0].path,
-        children: [...routes],
+        children: [...routes] as any as RouteRecordRaw[],
       };
       addRoute(layoutRoutes, true);
       const menus = permissionJson2permissiontree(
@@ -40,6 +42,14 @@ export const usePermissionStore = defineStore('permission', {
         null,
         true
       );
+      // const layoutRoutes = {
+      //   path: '/',
+      //   name: 'layout',
+      //   component: Layout,
+      //   redirect: menus[0].path,
+      //   children: [...menus] as any as RouteRecordRaw[],
+      // };
+      // addRoute(layoutRoutes, true);
       this.permissionMenus = menus;
     },
   },
