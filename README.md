@@ -148,6 +148,8 @@ pnpm install
 
 ### 开发环境编译运行
 
+开发时建议将 vite.config.ts 中 `dts: './typing/auto.import.d.ts',`、`dts: './typing/auto.components.d.ts'` 放开(取消注释) 以及将 `eslintrc` 下的 `enabled` 设置为 true。这样会自动生成组件及、部分方法的 ts 类型声明及 eslint 校验配置
+
 ```
 pnpm run dev
 ```

@@ -27,11 +27,31 @@ export const permissionRoutes: Array<RouteRecordRaw> = [
     component: () => import('@/views/dashboard/index.vue'),
   },
   {
+    path: '/user',
+    name: 'user',
+    meta: {
+      title: 'user',
+      icon: 'user',
+      component: '../views/user/index.vue',
+    },
+    component: () => import('@/views/user/index.vue'),
+  },
+  {
+    path: '/role',
+    name: 'role',
+    meta: {
+      title: 'role',
+      icon: 'role',
+      component: '../views/role/index.vue',
+    },
+    component: () => import('@/views/role/index.vue'),
+  },
+  {
     path: '/permission',
     name: 'permission',
     meta: {
       title: 'permission',
-      icon: 'table',
+      icon: 'permission',
       component: '../views/permission/index.vue',
     },
     component: () => import('@/views/permission/index.vue'),
@@ -62,7 +82,7 @@ export const permissionRoutes: Array<RouteRecordRaw> = [
         name: 'menuOne',
         meta: {
           title: 'menu1',
-          subTitle: '1',
+          icon: 'menu1',
           component: '../views/menu/one/index.vue',
         },
         component: () => import('@/views/menu/one/index.vue'),
@@ -72,8 +92,8 @@ export const permissionRoutes: Array<RouteRecordRaw> = [
             path: '/menu/one/one',
             name: 'menuOneOne',
             meta: {
-              title: 'menu1-1',
-              subTitle: '1-1',
+              title: 'menu2',
+              icon: 'menu2',
               component: '../views/menu/one/one.vue',
             },
             component: () => import('@/views/menu/one/one.vue'),
@@ -84,8 +104,8 @@ export const permissionRoutes: Array<RouteRecordRaw> = [
         path: '/menu/two',
         name: 'menuTwo',
         meta: {
-          title: 'menu2',
-          subTitle: '2',
+          title: 'menu3',
+          icon: 'menu3',
           component: '../views/menu/two.vue',
         },
         component: () => import('@/views/menu/two.vue'),

@@ -1,10 +1,10 @@
 <template>
-  <div class="table-container">表格解析</div>
+  <div class="role-container">角色管理</div>
 </template>
 
 <script setup lang="ts">
 defineOptions({
-  name: 'tablePage',
+  name: 'rolePage',
   inheritAttrs: false,
 });
 </script>

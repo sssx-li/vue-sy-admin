@@ -14,7 +14,12 @@
       "watermarks": "水印",
       "autograph": "电子签名",
       "menus": "多级菜单",
-      "menu": "菜单{subTitle}"
+      "menu": "菜单{subTitle}",
+      "user": "用户管理",
+      "role": "角色管理",
+      "menu1": "菜单1",
+      "menu2": "菜单2",
+      "menu3": "菜单3"
     },
     "errorTip": {
       "please_enter_username": "请输入用户名",
@@ -78,7 +83,12 @@
       "watermarks": "Watermarks",
       "autograph": "Autograph",
       "menus": "Menus",
-      "menu": "Menu{subTitle}"
+      "menu": "Menu{subTitle}",
+      "user": "User Management",
+      "role": "Role Management",
+      "menu1": "Menu 1",
+      "menu2": "Menu 2",
+      "menu3": "Menu 3"
     },
     "errorTip": {
       "please_enter_username": "Please enter username.",
