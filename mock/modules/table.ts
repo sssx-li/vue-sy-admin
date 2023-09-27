@@ -3,7 +3,7 @@ import Mock from 'mockjs';
 import { createResponse } from '../utils';
 
 import type { MockItem } from 'mock/types';
-import type { TableItem, TableRes } from '@/service/types';
+import type { TableItem } from '@/service/types';
 
 const tableData: { data: TableItem[] } = Mock.mock({
   'data|105': [
@@ -25,15 +25,21 @@ const tableMocks: MockItem[] = [
     response: (schema, request) => {
       const { name, currentPage, pageSize } = request.queryParams;
       const resData = JSON.parse(JSON.stringify(tableData));
-      // 模糊搜索 + 分页
-      resData.data = tableData.data
-        .filter((item) => {
-          if (!name) return true;
-          return item.name.indexOf(name) !== -1;
-        })
-        .slice((+currentPage - 1) * +pageSize, +currentPage * +pageSize);
+      const renderData = (resData.data = tableData.data.filter((item) => {
+        if (!name) return true;
+        return item.name.indexOf(name) !== -1;
+      }));
+      // 模糊搜索 + 分页(如果 pageSize 不存在时，返回所有数据)
+      if (!pageSize) {
+        resData.data = renderData;
+      } else {
+        resData.data = renderData.slice(
+          (+currentPage - 1) * +pageSize,
+          +currentPage * +pageSize
+        );
+      }
       resData.count = tableData.data.length;
-      return createResponse<TableRes>(resData);
+      return createResponse(resData);
     },
   },
   // 修改项

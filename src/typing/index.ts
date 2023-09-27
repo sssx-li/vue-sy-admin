@@ -1,3 +1,5 @@
+import type { LangTypes } from '@/i18n';
+
 // a | b | c ---> { a:V; b:V; c:V }
 export type UnionToObj<K extends string, V = string> = {
   [P in keyof { K: K } as `${K}`]: V;
@@ -12,3 +14,5 @@ export type ObjKeysToUnion<T, P extends string = ''> = T extends object
       >;
     }[keyof T]
   : P;
+
+export type KeyInLang = ObjKeysToUnion<LangTypes>;

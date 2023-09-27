@@ -11,7 +11,7 @@
       </el-icon>
     </div>
     <MenuItem
-      :routes="permissionMenus"
+      :routes="(permissionMenus as RouteRecordRaw[])"
       v-if="permissionMenus && permissionMenus.length > 0"
     />
   </el-menu>

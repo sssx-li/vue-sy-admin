@@ -28,7 +28,7 @@
           >
             <!-- 注释不能写在 el-tag 外部，Draggable 把注释作为一个节点，会导致多个根节点报错 👇-->
             <!-- 这里的必须将 disable-transitions设置为true;否则动画会影响el-scrollbar的更新计算导致滚动到当前tag失败(可以延迟调用解决) -->
-            {{ $t(`nav.${element.name}`, { subTitle: element.subName }) }}
+            {{ keyInI18n(element.name, 'nav') ? $t(`nav.${element.name}`) : element.name }}
           </el-tag>
         </template>
       </Draggable>

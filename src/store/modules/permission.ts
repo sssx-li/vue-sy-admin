@@ -1,8 +1,10 @@
 import permissions from '@/utils/permission';
+import { addRoute } from '@/router';
+
+import Layout from '@/layout/index.vue';
 
 import type { PermissionStore } from '../types';
-import { PermissionItem } from '@/service/types';
-import { permissionRoutes } from '@/router';
+import type { PermissionItem } from '@/service/types';
 
 export const usePermissionStore = defineStore('permission', {
   state: (): PermissionStore => {
@@ -24,12 +26,21 @@ export const usePermissionStore = defineStore('permission', {
       const { data } = await useHandleApiRes<PermissionItem[]>(
         userGetUserPermissionMenus()
       );
-      const routes = generatePermissionRoutes(
+      const routes = generatePermissionRoutes(data) as any as RouteRecordRaw[];
+      const layoutRoutes = {
+        path: '/',
+        name: 'layout',
+        component: Layout,
+        redirect: routes[0].path,
+        children: [...routes],
+      };
+      addRoute(layoutRoutes, true);
+      const menus = permissionJson2permissiontree(
         data.filter((item) => item.type === 'menu'),
-        permissionRoutes
+        null,
+        true
       );
-      this.permissionMenus = routes;
-      return routes;
+      this.permissionMenus = menus;
     },
   },
   persist: {

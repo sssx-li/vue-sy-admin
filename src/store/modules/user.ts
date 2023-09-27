@@ -11,6 +11,7 @@ export const useUserStore = defineStore('user', {
         role: 'normal',
         sex: 1,
       },
+      isLoad: false,
     };
   },
   actions: {
@@ -28,11 +29,9 @@ export const useUserStore = defineStore('user', {
     async getLocalData() {
       const { getCache } = useLocalCache();
       if (!getCache('token')) return;
-      const { getPermissionList, getPermissionMenus } = usePermissionStore();
+      const { getPermissionMenus } = usePermissionStore();
       await this.getUserInfoAction();
-      await getPermissionList();
-      const acceptRoutes = await getPermissionMenus();
-      return acceptRoutes;
+      await getPermissionMenus();
     },
   },
   persist: {

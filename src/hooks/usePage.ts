@@ -1,20 +1,13 @@
 import { usePagination } from './usePagination';
 
-import type { FormInstance, FormRules } from 'element-plus';
-import type { TableItem, TableRes } from '@/service/types';
+import type { TableRes } from '@/service/types';
 
-type THandle = 'create' | 'edit' | 'delete';
-
-export function usePage<T = TableItem>({
+export function usePage<T = any>({
   url,
   searchForm = {},
-  queryForm = {},
-  validateRules = {} as FormRules,
 }: {
   url: string;
   searchForm?: Record<string, any>;
-  queryForm?: Record<string, any>;
-  validateRules: FormRules;
 }) {
   const { success } = useMessage();
   const { t } = useI18n();
@@ -23,33 +16,10 @@ export function usePage<T = TableItem>({
   // 表格数据
   const loading = ref(false);
   const dataSource = reactive<TableRes<T>>({ data: [], count: 0 });
-
   // 分页
   const { pageInfo, pageSizeChange, currentPageChange, resetPageSize } =
     usePagination();
-  watch(
-    () => pageInfo,
-    () => {
-      getPageData();
-    },
-    { deep: true }
-  );
 
-  // 表单
-  const formInline = reactive({ ...queryForm });
-  const formRef = ref<FormInstance>();
-  const rules = reactive<FormRules>(validateRules);
-
-  // 弹窗
-  const dialogParams = reactive<{
-    visible: boolean;
-    loading: boolean;
-    type: Exclude<THandle, 'delete'>;
-  }>({
-    visible: false,
-    loading: false,
-    type: 'create',
-  });
   // 获取数据
   const getPageData = async () => {
     loading.value = true;
@@ -64,67 +34,9 @@ export function usePage<T = TableItem>({
     }
     loading.value = false;
   };
-
-  // 弹窗-取消
-  const handleCancel = () => {
-    dialogParams.type = 'create';
-    dialogParams.visible = false;
-    dialogParams.loading = false;
-    Object.assign(formInline, { ...queryForm });
-    formRef.value?.resetFields();
-  };
-  // 弹窗-确认
-  const handleConfirm = () => {
-    formRef.value?.validate().then(async (valid) => {
-      if (valid) {
-        dialogParams.loading = true;
-        if (dialogParams.type === 'create') {
-          await handleCreate();
-        } else {
-          await handleEdit();
-        }
-        handleCancel();
-        pageInfo.currentPage === 1 ? getPageData() : resetPageSize();
-      }
-    });
-  };
-  // 表格-增删改
-  const handleAction = (type: THandle, row?: Record<string, any>) => {
-    if (type === 'delete') {
-      handleDelete(row!);
-      return;
-    }
-    Object.assign(formInline, type === 'create' ? { ...queryForm } : row);
-    dialogParams.type = type as Exclude<THandle, 'delete'>;
-    dialogParams.visible = true;
-  };
-  // 增加
-  const handleCreate = async () => {
-    const { code } = await useHandleApiRes(
-      ApiRequest.post({
-        url,
-        data: {
-          ...formInline,
-        },
-      })
-    );
-    if (code === ResponseStatusCodeEnum.success) {
-      success(t('tips.create_success'));
-    }
-  };
-  // 编辑
-  const handleEdit = async () => {
-    const { code } = await useHandleApiRes(
-      ApiRequest.put({
-        url,
-        data: {
-          ...formInline,
-        },
-      })
-    );
-    if (code === ResponseStatusCodeEnum.success) {
-      success(t('tips.edit_success'));
-    }
+  // 刷新
+  const refreshData = () => {
+    pageInfo.currentPage === 1 ? getPageData() : resetPageSize();
   };
   // 删除
   const handleDelete = (row: Record<string, any>) => {
@@ -145,29 +57,29 @@ export function usePage<T = TableItem>({
       );
       if (code === ResponseStatusCodeEnum.success) {
         success(t('tips.delete_success'));
-        pageInfo.currentPage === 1 ? getPageData() : resetPageSize();
+        refreshData();
       }
     });
   };
 
   getPageData();
+  watch(
+    () => pageInfo,
+    () => {
+      getPageData();
+    },
+    { deep: true }
+  );
 
   return {
     loading,
     dataSource,
     pageInfo,
-    formInline,
-    formRef,
-    rules,
-    dialogParams,
     getPageData,
+    refreshData,
+    resetPageSize,
     pageSizeChange,
     currentPageChange,
-    handleAction,
-    handleCreate,
-    handleEdit,
     handleDelete,
-    handleCancel,
-    handleConfirm,
   };
 }
