@@ -18,14 +18,20 @@
           :disabled="disableTreeSelect"
           :data="permissionOptions"
           :render-after-expand="false"
-          :props="{ label: 'name', value: 'id' }"
+          :props="{ label: ({ meta }: any) =>  keyInI18n(meta.title as string, 'nav')
+                ? $t(`nav.${meta.title}`) + `(${meta.title})`
+                : meta.title, value: 'id' }"
           check-strictly
           clearable
           filterable
           class="w-100%"
         >
-          <template #default="{ data: { name } }">
-            {{ keyInI18n(name as string, 'nav') ? $t(`nav.${name}`) : name }}
+          <template #default="{ data: { name, meta } }">
+            {{
+              keyInI18n(meta.title as string, 'nav')
+                ? $t(`nav.${meta.title}`) + `(${name})`
+                : meta.title
+            }}
           </template>
         </el-tree-select>
       </el-form-item>
