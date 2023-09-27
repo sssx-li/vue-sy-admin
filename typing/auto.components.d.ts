@@ -19,6 +19,7 @@ declare module '@vue/runtime-core' {
     ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider'];
     ElContainer: typeof import('element-plus/es')['ElContainer'];
     ElDialog: typeof import('element-plus/es')['ElDialog'];
+    ElDivider: typeof import('element-plus/es')['ElDivider'];
     ElDropdown: typeof import('element-plus/es')['ElDropdown'];
     ElDropdownItem: typeof import('element-plus/es')['ElDropdownItem'];
     ElDropdownMenu: typeof import('element-plus/es')['ElDropdownMenu'];
@@ -33,6 +34,7 @@ declare module '@vue/runtime-core' {
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem'];
     ElOption: typeof import('element-plus/es')['ElOption'];
     ElPagination: typeof import('element-plus/es')['ElPagination'];
+    ElPopover: typeof import('element-plus/es')['ElPopover'];
     ElRow: typeof import('element-plus/es')['ElRow'];
     ElScrollbar: typeof import('element-plus/es')['ElScrollbar'];
     ElSelect: typeof import('element-plus/es')['ElSelect'];
@@ -41,8 +43,10 @@ declare module '@vue/runtime-core' {
     ElTable: typeof import('element-plus/es')['ElTable'];
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn'];
     ElTag: typeof import('element-plus/es')['ElTag'];
+    ElTooltip: typeof import('element-plus/es')['ElTooltip'];
     ElTreeSelect: typeof import('element-plus/es')['ElTreeSelect'];
     FollowChart: typeof import('./../src/views/dashboard/components/followChart.vue')['default'];
+    IconSelect: typeof import('./../src/components/iconSelect.vue')['default'];
     'IEp:expand': typeof import('~icons/ep/expand')['default'];
     'IEp:fold': typeof import('~icons/ep/fold')['default'];
     'IEp:switchButton': typeof import('~icons/ep/switch-button')['default'];

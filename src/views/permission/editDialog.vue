@@ -2,6 +2,7 @@
   <el-dialog
     v-model="visible"
     :title="type === 'create' ? $t('table.create') : $t('table.edit')"
+    :width="520"
     @closed="resetDialog"
   >
     <el-form
@@ -38,12 +39,12 @@
           placeholder="eg. /dashboard"
         />
       </el-form-item>
-      <el-form-item label="图标" prop="meta.icon">
-        <el-input
-          v-model="formInline.meta.icon"
-          autocomplete="off"
-          placeholder="eg. dashboard"
-        />
+      <el-form-item
+        label="图标"
+        prop="meta.icon"
+        v-if="formInline.type === 'menu'"
+      >
+        <icon-select v-model="formInline.meta.icon" />
       </el-form-item>
       <el-form-item label="组件路径" prop="meta.component">
         <el-input
