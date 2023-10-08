@@ -12,16 +12,37 @@
       label-width="100px"
       style="max-width: 460px"
     >
-      <el-form-item label="上级名称" prop="pid">
+      <el-form-item label="名称" prop="name">
+        <el-input v-model="formInline.name" placeholder="请输入名称"></el-input>
+      </el-form-item>
+      <el-form-item label="类型" prop="type">
+        <el-select
+          style="width: 100%"
+          v-model="formInline.type"
+          placeholder="请选择类型"
+        >
+          <el-option
+            v-for="role in roleOptions"
+            :key="role.value"
+            :value="role.value"
+            :label="role.label"
+          ></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="权限" prop="ids">
+        <!-- check-strictly:遵循父子不互相关联的做法。相关时父级id不会被选中，后续有时间优化 -->
         <el-tree-select
-          v-model="formInline.pid"
-          :disabled="disableTreeSelect"
+          v-model="formInline.ids"
           :data="permissionOptions"
           :render-after-expand="false"
           :props="{ label: ({ meta }: any) => `${i18nKey2Text(meta.title as string, 'nav')}${locale === 'zh' ? ('(' + meta.title + ')') : ''}`, value: 'id' }"
-          check-strictly
+          node-key="id"
           clearable
+          multiple
           filterable
+          check-on-click-node
+          show-checkbox
+          check-strictly
           class="w-100%"
         >
           <template #default="{ data: { name, meta } }">
@@ -32,48 +53,6 @@
             }}
           </template>
         </el-tree-select>
-      </el-form-item>
-      <el-form-item label="名称" prop="meta.title">
-        <el-input
-          v-model="formInline.meta.title"
-          autocomplete="off"
-          placeholder="eg. 首页"
-        />
-      </el-form-item>
-      <el-form-item label="路径" prop="path">
-        <el-input
-          v-model="formInline.path"
-          autocomplete="off"
-          placeholder="eg. /dashboard"
-        />
-      </el-form-item>
-      <el-form-item
-        label="图标"
-        prop="meta.icon"
-        v-if="formInline.type === 'menu'"
-      >
-        <icon-select v-model="formInline.meta.icon" />
-      </el-form-item>
-      <el-form-item label="组件路径" prop="meta.component">
-        <el-input
-          v-model="formInline.meta.component"
-          autocomplete="off"
-          placeholder="eg. ../view/dashboard/index.vue"
-        />
-      </el-form-item>
-      <el-form-item label="类型" prop="type">
-        <el-select
-          v-model="formInline.type"
-          placeholder="请选择类型"
-          class="w-100%"
-        >
-          <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          />
-        </el-select>
       </el-form-item>
     </el-form>
     <template #footer>
@@ -89,44 +68,31 @@
 
 <script setup lang="ts">
 import type { DialogCallbackType } from '@/hooks/useDialog';
-import type {
-  PermissionType,
-  PermissionUIItem,
-  RouteMeta,
-} from '@/service/types';
+import type { PermissionUIItem, RoleType } from '@/service/types';
 
 defineOptions({
-  name: 'permissionEditDialog',
+  name: 'roleEditDialog',
   inheritAttrs: false,
 });
 
 interface EmitType {
   (e: 'callback', type: DialogCallbackType): void;
-  (e: 'update:disableTreeSelect', value: boolean): void;
 }
 defineProps<{
   permissionOptions: PermissionUIItem[];
-  disableTreeSelect: boolean;
 }>();
 const emit = defineEmits<EmitType>();
 
 const { locale } = useI18n();
 const queryForm: {
-  path: string;
-  type: PermissionType;
-  pid: string | null;
-  meta: RouteMeta;
+  name: string;
+  type: RoleType;
+  ids: number[];
 } = {
-  path: '',
-  type: 'menu',
-  pid: null,
-  meta: { icon: '', title: '', component: '' },
+  name: '',
+  type: 'admin',
+  ids: [],
 };
-
-const options: { label: string; value: PermissionType | 'close' }[] = [
-  { label: '菜单权限', value: 'menu' },
-  { label: '按钮权限', value: 'button' },
-];
 
 const {
   formInline,
@@ -141,20 +107,13 @@ const {
   handleEdit,
   openDialog,
 } = useDialog<typeof queryForm>({
-  url: PermissionEnum.PERMISSIONS,
+  url: RoleEnum.ROLE,
   queryForm,
   validateRules: {
-    'meta.title': [
+    name: [
       {
         required: true,
         message: '请输入名称',
-        trigger: 'blur',
-      },
-    ],
-    path: [
-      {
-        required: true,
-        message: '请输入路径',
         trigger: 'blur',
       },
     ],
@@ -167,9 +126,7 @@ const {
     ],
   },
   callback: (_type: DialogCallbackType) => {
-    if (_type === 'close') {
-      emit('update:disableTreeSelect', false);
-    } else {
+    if (_type !== 'close') {
       emit('callback', _type);
     }
   },

@@ -1,3 +1,5 @@
+import type { RoleType } from './role';
+
 export interface UserLogin {
   password: string;
   username: string;
@@ -8,15 +10,12 @@ export interface UserLoginRes {
   token: string;
 }
 
-// 用户角色
-export type UserRoleTypes = 'admin' | 'normal';
-
 // 用户基本信息
 export interface UserInfo {
   username: string;
   avatar: string;
   sex?: 0 | 1;
-  role: UserRoleTypes;
+  role: RoleType;
   [propName: string]: any;
 }
 
@@ -26,5 +25,5 @@ export interface UserItem {
   username: string;
   avatar?: string;
   sex?: 0 | 1;
-  role: UserRoleTypes;
+  role: RoleType;
 }

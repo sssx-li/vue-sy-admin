@@ -16,6 +16,11 @@ export enum PermissionEnum {
   PERMISSIONS = '/permissions',
 }
 
+// 角色
+export enum RoleEnum {
+  ROLE = '/role',
+}
+
 // 首页
 export enum DashboardEnum {
   COUNT_INFO = '/dashboard/countInfo',

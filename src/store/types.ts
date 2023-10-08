@@ -1,10 +1,10 @@
 import type {
   PermissionItem,
   PermissionUIItem,
+  RoleItem,
   UserInfo,
   UserItem,
 } from '@/service/types';
-import { RouteRecordRaw } from 'vue-router';
 
 export interface UserStore {
   userList: UserItem[];
@@ -15,6 +15,8 @@ export interface UserStore {
 export interface PermissionStore {
   permissions: PermissionItem[];
   permissionMenus: Array<PermissionUIItem | RouteRecordRaw>;
-  adminPermissions: PermissionItem[];
-  normalPermissions: PermissionItem[];
+}
+
+export interface RoleStore {
+  roleList: RoleItem[];
 }

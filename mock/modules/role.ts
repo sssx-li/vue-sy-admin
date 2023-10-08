@@ -2,16 +2,16 @@ import { createResponse } from '../utils';
 
 import type { MockItem } from '../types';
 
-const permissionMocks: MockItem[] = [
-  // 权限列表
+const roleMocks: MockItem[] = [
+  // 角色列表
   {
-    url: PermissionEnum.PERMISSIONS,
+    url: RoleEnum.ROLE,
     method: 'get',
     response: async (schema, request) => {
       const { name, currentPage, pageSize } = request.queryParams;
-      const { permissions } = usePermissionStore();
+      const { roleList } = useRoleStore();
       const resData = {
-        data: toRaw(permissions),
+        data: toRaw(roleList),
         count: 0,
       };
       const renderData = (resData.data = resData.data.filter((item) => {
@@ -33,38 +33,34 @@ const permissionMocks: MockItem[] = [
   },
   // 修改项
   {
-    url: PermissionEnum.PERMISSIONS,
+    url: RoleEnum.ROLE,
     method: 'put',
     response: async (schema, request) => {
-      const store = usePermissionStore();
+      const store = useRoleStore();
       const query = JSON.parse(request.requestBody);
-      const index = store.permissions.findIndex((item) => item.id === query.id);
-      const cur = {
-        ...query,
-        pid: query.pid || null,
-      };
+      const index = store.roleList.findIndex((item) => item.id === query.id);
       await store.$patch((store) => {
-        store.permissions[index] = {
-          ...cur,
+        store.roleList[index] = {
+          ...query,
           updateTime: useDateFormat(useNow(), 'YYYY-MM-DD HH:mm:ss').value,
         };
       });
-      await store.getPermissionMenus();
+      const { getPermissionMenus } = usePermissionStore();
+      await getPermissionMenus();
       return createResponse('success');
     },
   },
   // 新增项
   {
-    url: PermissionEnum.PERMISSIONS,
+    url: RoleEnum.ROLE,
     method: 'post',
     response: (schema, request) => {
       const query = JSON.parse(request.requestBody);
-      const store = usePermissionStore();
-      const maxId = Math.max(...store.permissions.map((item) => +item.id));
+      const store = useRoleStore();
+      const maxId = Math.max(...store.roleList.map((item) => +item.id));
       store.$patch((store) => {
-        store.permissions.unshift({
+        store.roleList.unshift({
           ...query,
-          pid: query.pid || null,
           id: maxId + 1,
           createTime: useDateFormat(useNow(), 'YYYY-MM-DD HH:mm:ss').value,
         });
@@ -74,25 +70,17 @@ const permissionMocks: MockItem[] = [
   },
   // 删除项
   {
-    url: PermissionEnum.PERMISSIONS,
+    url: RoleEnum.ROLE,
     method: 'delete',
     response: async (schema, request) => {
       const { id } = request.queryParams;
-      const store = usePermissionStore();
+      const store = useRoleStore();
       await store.$patch((store) => {
-        store.permissions = store.permissions.filter((item) => item.id !== +id);
+        store.roleList = store.roleList.filter((item) => item.id !== +id);
       });
-      const roleStore = useRoleStore();
-      roleStore.roleList.forEach((item) => {
-        const index = item.ids.findIndex((item) => item === +id);
-        if (index !== -1) {
-          item.ids.splice(index, 1);
-        }
-      });
-      await store.getPermissionMenus();
       return createResponse('success');
     },
   },
 ];
 
-export default permissionMocks;
+export default roleMocks;

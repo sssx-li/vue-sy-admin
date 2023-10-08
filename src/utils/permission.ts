@@ -38,7 +38,7 @@ const routesModules: Record<string, any> = import.meta.glob(
 );
 
 // 生产权限路由
-export function generatePermissionRoutes(arr: PermissionItem[]) {
+export function generatePermissionRoutes(arr: PermissionItem[] = []) {
   const _arr = arr.filter((item) => item.type === 'menu');
   const routes: PermissionItem[] = [];
   for (let index = 0; index < _arr.length; index++) {

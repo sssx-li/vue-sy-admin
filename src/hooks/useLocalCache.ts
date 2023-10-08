@@ -14,7 +14,7 @@ interface LocalCacheValueType {
 const defCache: LocalCacheValueType = {
   token: '',
   theme: 'defaultTheme',
-  userInfo: { username: '', avatar: '', role: 'normal', sex: 0 },
+  userInfo: { username: '', avatar: '', role: 'admin', sex: 0 },
   lang: 'zh',
 };
 

@@ -31,13 +31,12 @@ const userMocks: MockItem[] = [
     response: (schema, request) => {
       const body = JSON.parse(request.requestBody);
       const store = useUserStore();
-      const user = (store.userList.find(
+      const user = store.userList.find(
         (item) => item.username === body.username
-      ) || {
-        username: body.username,
-        role: 'normal',
-        sex: 0,
-      }) as UserInfo;
+      ) as UserInfo;
+      if (!user) {
+        return createResponse('error', 203, '不存在该用户，请检查账号是否正确');
+      }
       setCache('userInfo', toRaw(user));
       return createResponse(loginRes);
     },
@@ -48,11 +47,14 @@ const userMocks: MockItem[] = [
     url: UserEnum.PERMISSIONS,
     method: 'get',
     response: () => {
-      const { role } = getCache('userInfo');
-      const { adminPermissions, normalPermissions } = usePermissionStore();
-      return createResponse(
-        role === 'admin' ? adminPermissions : normalPermissions
-      );
+      const userInfo = getCache('userInfo');
+      const { role, permission } = useStore();
+      const userPermissions = role.roleList
+        .find((item) => item.type === userInfo.role)!
+        .ids.map((id) => {
+          return permission.permissions.find((_item) => _item.id === id);
+        });
+      return createResponse(userPermissions);
     },
   },
 ];

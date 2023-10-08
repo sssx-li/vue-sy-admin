@@ -8,11 +8,7 @@
         <svg-icon :name="item.meta.icon as string" />
       </el-icon>
       <span>
-        {{
-          keyInI18n(item?.meta?.title as string, 'nav')
-            ? $t(`nav.${item?.meta?.title}`)
-            : item?.meta?.title
-        }}
+        {{ i18nKey2Text(item?.meta?.title as string, 'nav') }}
       </span>
     </el-menu-item>
     <el-sub-menu
@@ -25,11 +21,7 @@
           <svg-icon :name="item.meta.icon as string" />
         </el-icon>
         <span>
-          {{
-            keyInI18n(item?.meta?.title as string, 'nav')
-              ? $t(`nav.${item?.meta?.title}`)
-              : item?.meta?.title
-          }}
+          {{ i18nKey2Text(item?.meta?.title as string, 'nav') }}
         </span>
       </template>
       <menuItem :routes="item.children" />

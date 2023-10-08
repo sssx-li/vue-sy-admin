@@ -20,11 +20,7 @@
   >
     <el-table-column prop="meta.title" label="名称">
       <template #default="{ row }">
-        {{
-          keyInI18n(row.meta.title as string, 'nav')
-            ? $t(`nav.${row.meta.title}`)
-            : row.meta.title
-        }}
+        {{ i18nKey2Text(row.meta.title as string, 'nav') }}
       </template>
     </el-table-column>
     <el-table-column prop="meta.icon" label="图标">

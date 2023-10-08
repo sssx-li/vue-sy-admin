@@ -10,6 +10,7 @@ declare global {
   const PermissionEnum: typeof import('../src/constants/apiEnum')['PermissionEnum'];
   const ResponseStatusCodeEnum: typeof import('../src/constants/apiEnum')['ResponseStatusCodeEnum'];
   const RichEnum: typeof import('../src/constants/apiEnum')['RichEnum'];
+  const RoleEnum: typeof import('../src/constants/apiEnum')['RoleEnum'];
   const TableEnum: typeof import('../src/constants/apiEnum')['TableEnum'];
   const UserEnum: typeof import('../src/constants/apiEnum')['UserEnum'];
   const acceptHMRUpdate: typeof import('pinia')['acceptHMRUpdate'];
@@ -52,6 +53,7 @@ declare global {
   const getCurrentScope: typeof import('vue')['getCurrentScope'];
   const getImgUrl: typeof import('../src/utils/getImgUrl')['getImgUrl'];
   const h: typeof import('vue')['h'];
+  const i18nKey2Text: typeof import('../src/utils/index')['i18nKey2Text'];
   const ignorableWatch: typeof import('@vueuse/core')['ignorableWatch'];
   const imgToBase64: typeof import('../src/utils/imgToBase64')['imgToBase64'];
   const inject: typeof import('vue')['inject'];
@@ -113,6 +115,8 @@ declare global {
   const richGetResult: typeof import('../src/service/api/rich')['richGetResult'];
   const richSave: typeof import('../src/service/api/rich')['richSave'];
   const richUploadImg: typeof import('../src/service/api/rich')['richUploadImg'];
+  const roleDict: typeof import('../src/constants/role')['roleDict'];
+  const roleOptions: typeof import('../src/constants/role')['roleOptions'];
   const routes2permissionJson: typeof import('../src/utils/permission')['routes2permissionJson'];
   const setActivePinia: typeof import('pinia')['setActivePinia'];
   const setMapStoreSuffix: typeof import('pinia')['setMapStoreSuffix'];
@@ -261,6 +265,7 @@ declare global {
   const useRafFn: typeof import('@vueuse/core')['useRafFn'];
   const useRefHistory: typeof import('@vueuse/core')['useRefHistory'];
   const useResizeObserver: typeof import('@vueuse/core')['useResizeObserver'];
+  const useRoleStore: typeof import('../src/store/modules/role')['useRoleStore'];
   const useRoute: typeof import('vue-router')['useRoute'];
   const useRouter: typeof import('vue-router')['useRouter'];
   const useScreenOrientation: typeof import('@vueuse/core')['useScreenOrientation'];
@@ -368,6 +373,9 @@ declare module 'vue' {
     >;
     readonly RichEnum: UnwrapRef<
       typeof import('../src/constants/apiEnum')['RichEnum']
+    >;
+    readonly RoleEnum: UnwrapRef<
+      typeof import('../src/constants/apiEnum')['RoleEnum']
     >;
     readonly TableEnum: UnwrapRef<
       typeof import('../src/constants/apiEnum')['TableEnum']
@@ -477,6 +485,9 @@ declare module 'vue' {
       typeof import('../src/utils/getImgUrl')['getImgUrl']
     >;
     readonly h: UnwrapRef<typeof import('vue')['h']>;
+    readonly i18nKey2Text: UnwrapRef<
+      typeof import('../src/utils/index')['i18nKey2Text']
+    >;
     readonly ignorableWatch: UnwrapRef<
       typeof import('@vueuse/core')['ignorableWatch']
     >;
@@ -605,6 +616,12 @@ declare module 'vue' {
     >;
     readonly richUploadImg: UnwrapRef<
       typeof import('../src/service/api/rich')['richUploadImg']
+    >;
+    readonly roleDict: UnwrapRef<
+      typeof import('../src/constants/role')['roleDict']
+    >;
+    readonly roleOptions: UnwrapRef<
+      typeof import('../src/constants/role')['roleOptions']
     >;
     readonly routes2permissionJson: UnwrapRef<
       typeof import('../src/utils/permission')['routes2permissionJson']
@@ -965,6 +982,9 @@ declare module 'vue' {
     >;
     readonly useResizeObserver: UnwrapRef<
       typeof import('@vueuse/core')['useResizeObserver']
+    >;
+    readonly useRoleStore: UnwrapRef<
+      typeof import('../src/store/modules/role')['useRoleStore']
     >;
     readonly useRoute: UnwrapRef<typeof import('vue-router')['useRoute']>;
     readonly useRouter: UnwrapRef<typeof import('vue-router')['useRouter']>;
@@ -1158,6 +1178,9 @@ declare module '@vue/runtime-core' {
     readonly RichEnum: UnwrapRef<
       typeof import('../src/constants/apiEnum')['RichEnum']
     >;
+    readonly RoleEnum: UnwrapRef<
+      typeof import('../src/constants/apiEnum')['RoleEnum']
+    >;
     readonly TableEnum: UnwrapRef<
       typeof import('../src/constants/apiEnum')['TableEnum']
     >;
@@ -1266,6 +1289,9 @@ declare module '@vue/runtime-core' {
       typeof import('../src/utils/getImgUrl')['getImgUrl']
     >;
     readonly h: UnwrapRef<typeof import('vue')['h']>;
+    readonly i18nKey2Text: UnwrapRef<
+      typeof import('../src/utils/index')['i18nKey2Text']
+    >;
     readonly ignorableWatch: UnwrapRef<
       typeof import('@vueuse/core')['ignorableWatch']
     >;
@@ -1394,6 +1420,12 @@ declare module '@vue/runtime-core' {
     >;
     readonly richUploadImg: UnwrapRef<
       typeof import('../src/service/api/rich')['richUploadImg']
+    >;
+    readonly roleDict: UnwrapRef<
+      typeof import('../src/constants/role')['roleDict']
+    >;
+    readonly roleOptions: UnwrapRef<
+      typeof import('../src/constants/role')['roleOptions']
     >;
     readonly routes2permissionJson: UnwrapRef<
       typeof import('../src/utils/permission')['routes2permissionJson']
@@ -1754,6 +1786,9 @@ declare module '@vue/runtime-core' {
     >;
     readonly useResizeObserver: UnwrapRef<
       typeof import('@vueuse/core')['useResizeObserver']
+    >;
+    readonly useRoleStore: UnwrapRef<
+      typeof import('../src/store/modules/role')['useRoleStore']
     >;
     readonly useRoute: UnwrapRef<typeof import('vue-router')['useRoute']>;
     readonly useRouter: UnwrapRef<typeof import('vue-router')['useRouter']>;

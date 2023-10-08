@@ -4,11 +4,14 @@ import type { UserStore } from '../types';
 export const useUserStore = defineStore('user', {
   state: (): UserStore => {
     return {
-      userList: [{ id: 1, username: 'admin', role: 'admin' }],
+      userList: [
+        { id: 1, username: 'admin', role: 'admin', sex: 1 },
+        { id: 2, username: 'normal', role: 'normal', sex: 0 },
+      ],
       userInfo: {
         username: '',
         avatar: '',
-        role: 'normal',
+        role: 'admin',
         sex: 1,
       },
       isLoad: false,

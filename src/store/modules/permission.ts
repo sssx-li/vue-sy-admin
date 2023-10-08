@@ -11,8 +11,6 @@ export const usePermissionStore = defineStore('permission', {
     return {
       permissions,
       permissionMenus: [],
-      adminPermissions: permissions,
-      normalPermissions: permissions.slice(0, 5),
     };
   },
   actions: {
@@ -58,7 +56,7 @@ export const usePermissionStore = defineStore('permission', {
     strategies: [
       {
         storage: localStorage,
-        paths: ['permissions', 'adminPermissions', 'normalPermissions'],
+        paths: ['permissions'],
       },
     ],
   },

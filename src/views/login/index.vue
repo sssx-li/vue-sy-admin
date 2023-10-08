@@ -44,8 +44,8 @@ const { t } = useI18n();
 
 const loading = ref(false);
 const ruleForm = reactive({
-  username: '',
-  password: '',
+  username: 'admin',
+  password: 'admin1234',
 });
 const ruleFormRef = ref<FormInstance>();
 const computedRule = computed(() => ({
@@ -89,8 +89,8 @@ const handleLogin = () => {
       if (code === ResponseStatusCodeEnum.success) {
         setCache('token', data.token);
         await router.push('/');
-        loading.value = false;
       }
+      loading.value = false;
     } else {
       console.log('error submit!', fields);
     }

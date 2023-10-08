@@ -20,7 +20,7 @@
           @close="closeTag(item)"
           @contextmenu.prevent="openTagMenu(item, $event)"
         >
-          {{ keyInI18n(item.name, 'nav') ? $t(`nav.${item.name}`) : item.name }}
+          {{ i18nKey2Text(item.name, 'nav') }}
         </el-tag>
       </div>
     </el-scrollbar>

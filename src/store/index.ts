@@ -3,6 +3,8 @@ import piniaPersist from 'pinia-plugin-persist';
 export const useStore = () => {
   return {
     user: useUserStore(),
+    permission: usePermissionStore(),
+    role: useRoleStore(),
   };
 };
 

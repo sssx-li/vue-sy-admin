@@ -4,6 +4,7 @@ export * from './permission';
 export * from './dashboard';
 export * from './table';
 export * from './rich';
+export * from './role';
 
 export interface FeatchParams {
   url: string;
