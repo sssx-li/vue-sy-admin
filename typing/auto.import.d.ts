@@ -116,6 +116,7 @@ declare global {
   const richSave: typeof import('../src/service/api/rich')['richSave'];
   const richUploadImg: typeof import('../src/service/api/rich')['richUploadImg'];
   const roleDict: typeof import('../src/constants/role')['roleDict'];
+  const roleGetList: typeof import('../src/service/api/role')['roleGetList'];
   const roleOptions: typeof import('../src/constants/role')['roleOptions'];
   const routes2permissionJson: typeof import('../src/utils/permission')['routes2permissionJson'];
   const setActivePinia: typeof import('pinia')['setActivePinia'];
@@ -127,7 +128,6 @@ declare global {
   const storeToRefs: typeof import('pinia')['storeToRefs'];
   const syncRef: typeof import('@vueuse/core')['syncRef'];
   const syncRefs: typeof import('@vueuse/core')['syncRefs'];
-  const tableGetList: typeof import('../src/service/api/table')['tableGetList'];
   const templateRef: typeof import('@vueuse/core')['templateRef'];
   const throttledRef: typeof import('@vueuse/core')['throttledRef'];
   const throttledWatch: typeof import('@vueuse/core')['throttledWatch'];
@@ -620,6 +620,9 @@ declare module 'vue' {
     readonly roleDict: UnwrapRef<
       typeof import('../src/constants/role')['roleDict']
     >;
+    readonly roleGetList: UnwrapRef<
+      typeof import('../src/service/api/role')['roleGetList']
+    >;
     readonly roleOptions: UnwrapRef<
       typeof import('../src/constants/role')['roleOptions']
     >;
@@ -643,9 +646,6 @@ declare module 'vue' {
     readonly storeToRefs: UnwrapRef<typeof import('pinia')['storeToRefs']>;
     readonly syncRef: UnwrapRef<typeof import('@vueuse/core')['syncRef']>;
     readonly syncRefs: UnwrapRef<typeof import('@vueuse/core')['syncRefs']>;
-    readonly tableGetList: UnwrapRef<
-      typeof import('../src/service/api/table')['tableGetList']
-    >;
     readonly templateRef: UnwrapRef<
       typeof import('@vueuse/core')['templateRef']
     >;
@@ -1424,6 +1424,9 @@ declare module '@vue/runtime-core' {
     readonly roleDict: UnwrapRef<
       typeof import('../src/constants/role')['roleDict']
     >;
+    readonly roleGetList: UnwrapRef<
+      typeof import('../src/service/api/role')['roleGetList']
+    >;
     readonly roleOptions: UnwrapRef<
       typeof import('../src/constants/role')['roleOptions']
     >;
@@ -1447,9 +1450,6 @@ declare module '@vue/runtime-core' {
     readonly storeToRefs: UnwrapRef<typeof import('pinia')['storeToRefs']>;
     readonly syncRef: UnwrapRef<typeof import('@vueuse/core')['syncRef']>;
     readonly syncRefs: UnwrapRef<typeof import('@vueuse/core')['syncRefs']>;
-    readonly tableGetList: UnwrapRef<
-      typeof import('../src/service/api/table')['tableGetList']
-    >;
     readonly templateRef: UnwrapRef<
       typeof import('@vueuse/core')['templateRef']
     >;

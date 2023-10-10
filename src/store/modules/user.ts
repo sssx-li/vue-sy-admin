@@ -5,8 +5,20 @@ export const useUserStore = defineStore('user', {
   state: (): UserStore => {
     return {
       userList: [
-        { id: 1, username: 'admin', role: 'admin', sex: 1 },
-        { id: 2, username: 'normal', role: 'normal', sex: 0 },
+        {
+          id: 1,
+          username: 'admin',
+          role: 'admin',
+          sex: 1,
+          createTime: '2023-10-10 10:31:00',
+        },
+        {
+          id: 2,
+          username: 'normal',
+          role: 'normal',
+          sex: 0,
+          createTime: '2023-10-10 10:31:00',
+        },
       ],
       userInfo: {
         username: '',

@@ -9,6 +9,7 @@ export enum UserEnum {
   LOGIN = '/user/login',
   INFO = '/user/info',
   PERMISSIONS = 'user/permissions',
+  USER = '/user',
 }
 
 // 权限

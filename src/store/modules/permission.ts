@@ -14,12 +14,6 @@ export const usePermissionStore = defineStore('permission', {
     };
   },
   actions: {
-    async getPermissionList() {
-      const { data } = await useHandleApiRes<PermissionItem[]>(
-        permissionGetList()
-      );
-      this.permissions = data;
-    },
     async getPermissionMenus() {
       const { data } = await useHandleApiRes<PermissionItem[]>(
         userGetUserPermissionMenus()

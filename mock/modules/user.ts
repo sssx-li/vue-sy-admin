@@ -57,6 +57,85 @@ const userMocks: MockItem[] = [
       return createResponse(userPermissions);
     },
   },
+  // 用户列表
+  {
+    url: UserEnum.USER,
+    method: 'get',
+    response: async (schema, request) => {
+      const { username, currentPage, pageSize } = request.queryParams;
+      const { userList } = useUserStore();
+      const resData = {
+        data: toRaw(userList),
+        count: 0,
+      };
+      const renderData = (resData.data = resData.data.filter((item) => {
+        if (!username) return true;
+        return item.username.indexOf(username) !== -1;
+      }));
+      // 模糊搜索 + 分页(如果 pageSize 不存在时，返回所有数据)
+      if (!pageSize) {
+        resData.data = renderData;
+      } else {
+        resData.data = renderData.slice(
+          (+currentPage - 1) * +pageSize,
+          +currentPage * +pageSize
+        );
+      }
+      resData.count = resData.data.length;
+      return createResponse(resData);
+    },
+  },
+  // 修改项
+  {
+    url: UserEnum.USER,
+    method: 'put',
+    response: async (schema, request) => {
+      const store = useUserStore();
+      const query = JSON.parse(request.requestBody);
+      const index = store.userList.findIndex((item) => item.id === query.id);
+      await store.$patch((store) => {
+        store.userList[index] = {
+          ...query,
+          updateTime: useDateFormat(useNow(), 'YYYY-MM-DD HH:mm:ss').value,
+        };
+      });
+      return createResponse('success');
+    },
+  },
+  // 新增项
+  {
+    url: UserEnum.USER,
+    method: 'post',
+    response: (schema, request) => {
+      const query = JSON.parse(request.requestBody);
+      const store = useUserStore();
+      const maxId = Math.max(...store.userList.map((item) => +item.id));
+      store.$patch((store) => {
+        store.userList.unshift({
+          ...query,
+          id: maxId + 1,
+          createTime: useDateFormat(useNow(), 'YYYY-MM-DD HH:mm:ss').value,
+        });
+      });
+      return createResponse('success');
+    },
+  },
+  // 删除项
+  {
+    url: UserEnum.USER,
+    method: 'delete',
+    response: async (schema, request) => {
+      const { id } = request.queryParams;
+      if (+id === 1) {
+        return createResponse('error', 201, '不能删除管理员');
+      }
+      const store = useUserStore();
+      await store.$patch((store) => {
+        store.userList = store.userList.filter((item) => item.id !== +id);
+      });
+      return createResponse('success');
+    },
+  },
 ];
 
 export default userMocks;

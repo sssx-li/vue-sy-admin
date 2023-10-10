@@ -11,20 +11,18 @@ interface IConfirm {
 }
 
 export function useConfirm(): (options?: IConfirm) => any {
-  return (
-    params: IConfirm = {
-      content: t('tips.tip'),
-      title: t('tips.tip'),
-      options: {
+  return (params = {}) => {
+    const {
+      content = t('tips.tip'),
+      title = t('tips.tip'),
+      options = {
         type: 'info',
         confirmButtonText: t('tips.ok'),
         cancelButtonText: t('tips.cancel'),
         center: false,
         autofocus: false,
       },
-    }
-  ) => {
-    const { content, title, options } = params;
+    } = params;
     return new Promise((resolve) => {
       ElMessageBox.confirm(content, title, options)
         .then(() => {

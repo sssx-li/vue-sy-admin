@@ -26,4 +26,6 @@ export interface UserItem {
   avatar?: string;
   sex?: 0 | 1;
   role: RoleType;
+  createTime?: string;
+  updateTime?: string;
 }
