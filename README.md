@@ -90,6 +90,10 @@ cli 生成模板基于 `vue-vite-template` 项目;详情可查看[github:vue-vit
 
   集成多种动态svg图标使用：封装SvgIcon组件、集成unplugin-icons
 
+  数据支持基于mockjs，使用miragejs实现接口本地化拦截
+
+  项目目前已实现： 语言国际化(菜单部分)、动态路由、权限菜单/角色控制、表格解析(上传及下载)、富文本、水印及电子签名等功能
+
 ```
 
 ### 项目结构说明
