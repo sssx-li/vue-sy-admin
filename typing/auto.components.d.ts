@@ -45,11 +45,14 @@ declare module '@vue/runtime-core' {
     ElTag: typeof import('element-plus/es')['ElTag'];
     ElTooltip: typeof import('element-plus/es')['ElTooltip'];
     ElTreeSelect: typeof import('element-plus/es')['ElTreeSelect'];
+    ElUpload: typeof import('element-plus/es')['ElUpload'];
     FollowChart: typeof import('./../src/views/dashboard/components/followChart.vue')['default'];
     IconSelect: typeof import('./../src/components/iconSelect.vue')['default'];
+    'IEp:download': typeof import('~icons/ep/download')['default'];
     'IEp:expand': typeof import('~icons/ep/expand')['default'];
     'IEp:fold': typeof import('~icons/ep/fold')['default'];
     'IEp:switchButton': typeof import('~icons/ep/switch-button')['default'];
+    IEpUploadFilled: typeof import('~icons/ep/upload-filled')['default'];
     InterviewChart: typeof import('./../src/views/dashboard/components/interviewChart.vue')['default'];
     ISyLang: typeof import('~icons/sy/lang')['default'];
     ISyVue: typeof import('~icons/sy/vue')['default'];
