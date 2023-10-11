@@ -25,7 +25,7 @@ export function useDialog<T extends object>({
   url?: string;
   queryForm?: T;
   validateRules?: ComputedRef<FormRules> | FormRules;
-  callback?: (type: DialogType | 'close') => any;
+  callback?: (type: DialogCallbackType) => any;
 }) {
   const { success } = useMessage();
   const { t } = useI18n();
@@ -46,7 +46,7 @@ export function useDialog<T extends object>({
       formInline,
       type === 'create' ? { ...queryForm, ...row } : row
     );
-    dialogParams.type = type as DialogType;
+    dialogParams.type = type;
     dialogParams.visible = true;
   };
   // 重置弹窗
