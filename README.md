@@ -4,6 +4,20 @@
 
 cli 生成模板基于 `vue-vite-template` 项目;详情可查看[github:vue-vite-template](https://github.com/sssx-li/vue-vite-template/tree/element-template/)、[gitee:vue-vite-template](https://gitee.com/qy-tingyun/vue-vite-template/tree/element-template/)
 
+## vscode 相关插件推荐
+
+```
+  TypeScript Vue Plugin(Volar)
+  Vue Language Features(Volar)
+
+  Eslint
+  Stylelint
+  Prettier - Code formatter
+  EditorConfig for VS Code
+
+  UnoCss
+```
+
 ## TODO
 
 - 菜单
@@ -58,13 +72,6 @@ cli 生成模板基于 `vue-vite-template` 项目;详情可查看[github:vue-vit
     - 开始时间：2023-9-27
     - 执行人: sssx-li
     - 已完成(2023-9-27)
-
-  - 标签导航拖拽功能  
-    描述: 标签导航的左右位置拖拽
-
-    - 开始时间：
-    - 执行人:
-    - 未完成
 
 ### 特色功能
 
